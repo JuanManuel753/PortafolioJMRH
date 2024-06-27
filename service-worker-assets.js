@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-gLhWZpVcM04ijdjwsnzUFzkm4iB0cnP5WW9jfc7\/BKo=",
+      "hash": "sha256-uh7TgQ1pPRVBFYkwrLB44rUsAiVGWZSa6cZy1TVUEkM=",
       "url": "404.html"
     },
     {
@@ -29,7 +29,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-ZBSm+vwwcUKkJPBRGd\/931bImW5VWJF077NDcHPCpXA=",
+      "hash": "sha256-ChlwPMjWnOZsFY+eotjaaGLzx7u6X0r817qRGnsEttw=",
       "url": "index.html"
     },
     {
@@ -73,7 +73,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-9SYHpm7BcOonl0nMeIEJzg9h1Q0O3kZKfE10DGV+LYU=",
+      "hash": "sha256-wk8fRk0NwlAsnWu2nLRJ5rNxR7AtidM20RFQ9TGkNCM=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -145,7 +145,7 @@
       "url": "_framework\/MudBlazor.wasm"
     },
     {
-      "hash": "sha256-f6VtMubTHgV6fCPofqXGpsdb5OlJRNn5cZ5NFQlfOzE=",
+      "hash": "sha256-McZOz8Xt1Cz8CJxNzgpvsLo0nIZ\/L3CY9wsMMwpnRrY=",
       "url": "_framework\/PortafolioJMRH.wasm"
     },
     {
@@ -241,5 +241,5 @@
       "url": "_content\/MudBlazor\/MudBlazor.min.js"
     }
   ],
-  "version": "y9f\/Gsvn"
+  "version": "XF8n\/adR"
 };
