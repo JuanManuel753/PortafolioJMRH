@@ -85,7 +85,7 @@
       "url": "img\/sql-server.png"
     },
     {
-      "hash": "sha256-dD4NMECqAl5wVhG0M2lnUfqCasaIVK5HmSEBUo0ccNE=",
+      "hash": "sha256-YsAW9ACL+gCASi2MWO+BzvCO+VUduZbFOpi6vRYcljk=",
       "url": "index.html"
     },
     {
@@ -129,7 +129,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-bTWsMEQwWZ4+9C4k8WI\/N46tLQRKa499rrm+QotaZI0=",
+      "hash": "sha256-LBI6MNAOy9zJaIH22Ppyh3HZd7sB0mafeEcEmBu7nQI=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -201,7 +201,7 @@
       "url": "_framework\/MudBlazor.wasm"
     },
     {
-      "hash": "sha256-i9meJZ2Lie+0roKVCLSgUaWOPxIX2DBsu46tLLt9PBE=",
+      "hash": "sha256-b31dsZvDJ1xt4m3dTHTdTA2YCp3490d1H+ru1lpG23g=",
       "url": "_framework\/PortafolioJMRH.wasm"
     },
     {
@@ -293,5 +293,5 @@
       "url": "_content\/MudBlazor\/MudBlazor.min.js"
     }
   ],
-  "version": "jSBX979K"
+  "version": "BvJN2c00"
 };
