@@ -1,7 +1,1043 @@
 ﻿@page "/"
+<style>
+    .texto-izquierda-subtitle-2-seccion-inicio{
+        font-family: 'Geologica', Akzidenz-Grotesk BQ;
+        text-align: justify;
+        margin-left: 40px;
+        color: #64748b;
+        margin-right: 40px;
+    }
+    .texto-izquierda-h-3-seccion-inicio
+    {
+        font-family: 'Geologica', Akzidenz-Grotesk BQ;
+        text-align: start;
+        margin-left: 30px;
+        color:black;
+    }
 
-<PageTitle>Home</PageTitle>
+    .Mud-grid-transform {
+        transition: transform 0.3s ease-in-out;
+    }
 
-<h1>Hola munndo!</h1>
+        .Mud-grid-transform:hover {
+            transform: scale(1.05);
+        }
+</style>
+<PageTitle>Cv Juan Manuel Ramirez</PageTitle>
 
-PRUEBA
+<!-- #region sobre mi -->
+<MudGrid>
+    <MudItem xs="12" Style="padding-top:0;">
+        <MudPaper Elevation="0" Class="d-flex flex-column align-center justify-center mud-width-full py-8 text-center" Style="background-color:#f1f5f9;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.h3" Class="texto-izquierda-h-3-seccion-inicio">Sobre mí</MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
+                            Como desarrollador de software con experiencia laboral de 2 años, mi trayectoria abarca aproximadamente 3 años en el desarrollo web y de escritorio.
+                            Siempre busco nuevos desafíos y conocimientos para mantenerme a la vanguardia en esta industria.
+                        </MudText>
+                        <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
+                            Impulsado por la curiosidad, disfruto explorando y dominando tecnologías emergentes.
+                            Mi dedicación a ofrecer soluciones innovadoras alimenta mi pasión por crear software extraordinario.
+                            Siempre busco nuevos desafíos y conocimientos para mantenerme a la vanguardia en esta industria.
+                        </MudText>
+                        <MudButton Variant="Variant.Outlined" Color="Color.Info" EndIcon="@Icons.Material.Rounded.PictureAsPdf" IconColor="Color.Info" Href="cvJuanManuelRamirez.pdf" Target="_blank">Descargar Cv</MudButton>
+                    </div>
+                </div>
+                <div style="flex: 3.5; display: flex; justify-content: center;">
+                    <MudImage Src="images/sweden.jpg" Width="280" Height="280" Alt="Swedish Farm House" Elevation="25" Class="rounded-circle" />
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+<!-- #endregion -->
+
+<!-- #region Experiencia laboral -->
+@* <MudGrid Justify="Justify.Center" id="Experiencia">
+    <MudItem xs="12" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="0" Class="mud-width-full" Style="padding-top: 1px !important;">
+            <MudText Typo="Typo.h3" Class="texto-izquierda-h-3-seccion-inicio" >Experiencia Laboral</MudText>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem xs="11" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <MudText Typo="Typo.h4" Class="texto-izquierda-h-3-seccion-inicio">Analista y Desarrollador De Software (Autor)</MudText>
+                <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
+                    10/2023 - Act. Taxco Finances
+                </MudText>
+                <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="color:black !important">
+                    Desarrollo de sistema web de pago de nóminas "Payroll" para los trabajadores de las empresas registradas en el sistema de taxco finances.
+                </MudText>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="11" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <MudText Typo="Typo.h4" Class="texto-izquierda-h-3-seccion-inicio">Analista y Desarrollador De Software (Autor)</MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
+                        Enero 2024 - Abril 2024. AutoPartes Agricolas
+                    </MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="color:black !important">
+                        Desarrollo de pagina web, para venta y promocionar de productos para la empresa autopartes agrícola.
+                    </MudText>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="11" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <MudText Typo="Typo.h4" Class="texto-izquierda-h-3-seccion-inicio">Analista y Desarrollador De Software (Autor)</MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
+                        Noviembre 2023 - Enero 2024. High Clean
+                    </MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="color:black !important">
+                        Desarrollo de aplicación de escritorio, aplicativo para pago de nóminas (Payroll) de la empresa HighClean.
+                    </MudText>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="11" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <MudText Typo="Typo.h4" Class="texto-izquierda-h-3-seccion-inicio">Analista y Desarrollador de software</MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
+                        Septiembre 2022 - Noviembre 2022. Pesaje Inteligente
+                    </MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="color:black !important">
+                        Desarrollo de diferentes Componentes de area administrativa para proyecto.
+                    </MudText>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="11" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <MudText Typo="Typo.h4" Class="texto-izquierda-h-3-seccion-inicio">Aprendiz Sena</MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
+                        Marzo 2022 - Septiembre 2022. Emcartago
+                    </MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="color:black !important">
+                        Desarrollo de diferentes formularios/componentes para proyectos de virtualizacion de formularios.
+                    </MudText>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+</MudGrid> *@
+<!-- #endregion -->
+
+<!-- #region Educacion -->
+@* <MudGrid Justify="Justify.Center" id="Educacion">
+    <MudItem xs="12" Style="display:flex; justify-content:center; align-items:center; padding-top:50px;">
+        <MudPaper Elevation="0" Class="mud-width-full" Style="padding-top: 1px !important;">
+            <MudText Typo="Typo.h3" Class="texto-izquierda-h-3-seccion-inicio">Educacion</MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="11" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <MudText Typo="Typo.h4" Class="texto-izquierda-h-3-seccion-inicio">
+                        Analisis Y Desarrollo De Informacion (ADSI), Tecnología de ingeniería
+                        informática
+                    </MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
+                        septiembre de 2020 - septiembre de 2022 - Servicio Nacional de Aprendizaje (SENA).
+                    </MudText>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="11" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <MudText Typo="Typo.h4" Class="texto-izquierda-h-3-seccion-inicio">Certificados</MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
+                        • Udemy: Programando en blazor - ASP.Net, Desarrollo de aplicaciones web. (agosto de
+                        2022 - septiembre de 2022).
+                    </MudText>
+                    <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
+                        • SENA: Aplicacion del marco de trabjao scrum para proyectos de desarrollo
+                        de software, Tecnología informática/Tecnología de sistemas
+                        informáticos · (septiembre de 2022 - octubre de 2022).
+                    </MudText>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+</MudGrid> *@
+<!-- #endregion -->
+
+<!-- #region Habilidades -->
+<MudGrid Justify="Justify.Center" id="Habilidades">
+    <MudItem xs="12" Style="display:flex; justify-content:center; align-items:center; padding-top:50px;">
+        <MudPaper Elevation="0" Class="mud-width-full" Style="padding-top: 1px !important;">
+            <MudText Typo="Typo.h3" Class="texto-izquierda-h-3-seccion-inicio">Habilidades</MudText>
+        </MudPaper>
+    </MudItem>
+    <!-- #region 1 -->
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/c-sharp.png"  />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                    <MudText Typo="Typo.subtitle2"  Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                        C#
+                    </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="90" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>90%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/html-5.png" Style="justify-content:center;" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            HTML
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="100" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>100%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/css-3.png" Style="justify-content:center;" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            CSS
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="70" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>70%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/java-script.png" Style="justify-content:center;" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                    <MudText Typo="Typo.subtitle2"  Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                        JAVASCRIPT
+                    </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="90" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>90%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <!-- #endregion -->
+    <!-- #region 2 -->
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudIcon Icon="@Icons.Custom.Brands.MudBlazor" Style="width:32px; height:32px; color:black;" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            MUDBLAZOR
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="90" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>90%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/bootstrap.png" Style="justify-content:center;" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            BOOTSTRAP
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="100" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>100%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/code.png" Style="justify-content:center;" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            WINDOWS FORMS 
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="80" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>80%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/net.png" Style="justify-content:center;" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            .NET 5.0-6.0-7.0
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="95" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>95%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <!-- #endregion -->
+    <!-- #region 3 -->
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/asp.png" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            ASP .NET
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="90" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>90%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./favicon.png" Style="color:black; width:32px; height:32px;" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            BLAZOR WEB ASSEMBLY Y SERVER
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="90" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>90%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/server-storage.png" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            ENTITY FRAMEWORK
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="80" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>80%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/server-storage.png" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            ADO.NET
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="70" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>70%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <!-- #endregion -->
+    <!-- #region 4 -->
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/sql-server.png"  />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            SQL SERVER
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="95" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>95%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/mysql.png" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            MYSQL
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="80" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>80%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/database.png" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            POSTGRESQL
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="60" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>60%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
+        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/azure.png" Style="justify-content:center;" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            AZURE
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudProgressLinear Striped="true" Color="Color.Info" Size="Size.Large" Value="55" Style="width:95%;">
+                            <MudText Typo="Typo.subtitle1" Style="color:black;">
+                                <b>55%</b>
+                            </MudText>
+                        </MudProgressLinear>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <!-- #endregion -->
+</MudGrid>
+<!-- #endregion -->
+<!-- #region Proyectos -->
+<MudGrid Justify="Justify.Center" id="Proyectos">
+    <MudItem xs="12" Style="display:flex; justify-content:center; align-items:center; padding-top:50px;">
+        <MudPaper Elevation="0" Class="mud-width-full py-4" Style="padding-top: 1px !important;">
+            <MudText Typo="Typo.h3" Class="texto-izquierda-h-3-seccion-inicio">Proyectos</MudText>
+        </MudPaper>
+    </MudItem>
+    <!-- #region Proyectos Empresariales -->
+    <MudItem xs="12" >
+        <MudPaper Elevation="0" Class="mud-width-full py-4" Style="padding-top: 1px !important; display: flex; justify-content: center; align-items: center; color:black;">
+            <MudText Typo="Typo.h3">Empresariales</MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
+                            Taxco Finances
+                        </MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
+                            Desarrollo de sistema web de pago de nóminas "Payroll"
+                        </MudText>
+                    </div>
+                    <br />
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Descripcion:
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Implementé un sistema web de pago de nóminas para gestionar el procesamiento de nóminas de los trabajadores de las empresas registradas en el sistema de Taxco Finances.
+                            El sistema permite a las empresas administrar de manera eficiente sus procesos de pago, asegurando precisión y cumplimiento normativo.
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Tecnologías Utilizadas
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Blazor Web Assembly .NET 7.0 - EntityFramework - MudBlazor - Bootstrap - C# - HTML - CSS - JavaScript - SQL Server
+                        </MudText>
+                        <div style ="display: flex;justify-content: flex-end; margin-right:20px;">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://taxcopay.com/" Target="_blank">Ver</MudButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
+                            Autopartes Agricolas
+                        </MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
+                            Desarrollo de pagina web
+                        </MudText>
+                    </div>
+                    <br />
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Descripcion:
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Desarrollé una página web para la empresa Autopartes Agrícolas con el objetivo de promocionar y vender productos como cardanes, cuchillas, elementos de seguridad y una sección de ofertas.
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Tecnologías Utilizadas
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Blazor Web Assembly .NET 7.0 - EntityFramework - MudBlazor - Bootstrap - C# - HTML - CSS - JavaScript - SQL Server
+                        </MudText>
+                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://autopartesagricolas.com/" Target="_blank">Ver</MudButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
+                            Fundacion I'm For You
+                        </MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
+                            Desarrollo de pagina web
+                        </MudText>
+                    </div>
+                    <br />
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Descripcion:
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Desarrollo de una página web para la Fundación Imfor You, una entidad sin ánimo de lucro dedicada a la formación integral del ser humano, 
+                            especialmente en sectores con escasos recursos. El proyecto tiene como objetivo crear un sistema de generación de ingresos autosostenible 
+                            que permita mitigar la carencia de apoyo económico para jóvenes, invirtiendo en su desarrollo emocional, físico y mental
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Tecnologías Utilizadas
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            ASPMVC.NET 7.0 - Procedimientos Almacenados - Bootstrap - C# - HTML - CSS - JavaScript - SQL Server
+                        </MudText>
+                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://fundacionimforyou.com/" Target="_blank">Ver</MudButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <!-- #endregion -->
+    <!-- #region Proyectos Practicos -->
+    <MudItem xs="12" Style="padding: 12px 0;">
+        <MudPaper Elevation="0" Class="mud-width-full py-4" Style="padding-top: 1px !important; display: flex; justify-content: center; align-items: center; color:black;">
+            <MudText Typo="Typo.h3">Practicos</MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
+                            Proyecto Practias
+                        </MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
+                            Desarrollo de virtualizacion de componentes/formularios 
+                        </MudText>
+                    </div>
+                    <br />
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Descripcion:
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Este proyecto tiene como objetivo digitalizar diversos formularios que tradicionalmente se llenaban a mano, transformándolos en formularios web interactivos y accesibles. 
+                            Esto facilita la recolección y gestión de datos, mejorando la eficiencia y reduciendo errores manuales.
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Tecnologías Utilizadas
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Blazor Web Assembly .NET 5.0-6.0 - EntityFramework - MudBlazor - Bootstrap - C# - HTML - CSS - JavaScript - SQL Server
+                        </MudText>
+                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://github.com/JuanManuel753/ProyectoEmcartago" Target="_blank">Ver</MudButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
+                            Proyecto de Entrada y Salida (Escritorio)
+                        </MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
+                            Proyecto de Entrada y Salida de Implementos con Código de Barras
+                        </MudText>
+                    </div>
+                    <br />
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Descripcion:
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Este proyecto automatiza el proceso de entrada y salida de implementos utilizando tecnología de código de barras, mejorando la eficiencia y la precisión en la gestión de inventarios y el ingreso de personas.
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Tecnologías Utilizadas
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Windows Forms, .NetCore, Bunifu UI
+                        </MudText>
+                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://github.com/JuanManuel753/Proyecto-Entrada-y-Salida" Target="_blank">Ver</MudButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
+                            Proyecto de Carteleras de Cine
+                        </MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
+                            Proyecto de Carteleras de Cine Realizado en un Certificado de Udemy
+                        </MudText>
+                    </div>
+                    <br />
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Descripcion:
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Este proyecto, completado como parte de un curso en Udemy, consiste en desarrollar una aplicación web para mostrar las carteleras de cine, incluyendo detalles de películas, votos a las peliculas, Muestra de actores y sus personajes.
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Tecnologías Utilizadas
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Blazor Web Assembly .NET 5.0-6.0 - EntityFramework - MudBlazor - Bootstrap - C# - HTML - CSS - JavaScript - SQL Server
+                        </MudText>
+                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://github.com/JuanManuel753/BlazorPeliculasNet5IdentityServer4" Target="_blank">Ver</MudButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
+                            Juego de Saltos (Estilo Dino de Google Chrome)
+                        </MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
+                            Desarrollo en practicas
+                        </MudText>
+                    </div>
+                    <br />
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Descripcion:
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Este proyecto es un juego de saltos similar al famoso juego del dinosaurio de Google Chrome, donde el jugador debe evitar obstáculos saltando sobre ellos. 
+                            El juego incluirá un selector de personajes que permite al jugador elegir entre tres diferentes personajes.
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Tecnologías Utilizadas
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                           HTML5 - CSS - JavaScript
+                        </MudText>
+                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://juegodesaltosjuanmanuelramirez.netlify.app/index.html" Target="_blank">Ver</MudButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
+                            Reloj Analogico - Digital
+                        </MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
+                            Reloj en tiempo real
+                        </MudText>
+                    </div>
+                    <br />
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Descripcion:
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Este proyecto consiste en la creación de un reloj que muestra la hora tanto en formato analógico como digital. 
+                            La interfaz incluye un reloj con manecillas que representan las horas, minutos y segundos, así como una pantalla digital que muestra la hora en formato numérico
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Tecnologías Utilizadas
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                           Blazor - C# - HTML5 - CSS - JavaScript
+                        </MudText>
+                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://relojanalogodigitaljuanmanuelramiez.netlify.app/" Target="_blank">Ver</MudButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
+                            Caculadora
+                        </MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
+                            Caculadora
+                        </MudText>
+                    </div>
+                    <br />
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Descripcion:
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Este proyecto implica desarrollar una calculadora que no solo realiza operaciones aritméticas básicas (suma, resta, multiplicación y división)
+                            sino que también incluye la funcionalidad para calcular la raíz cuadrada de un número.
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Tecnologías Utilizadas
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Blazor - C# - HTML5 - CSS - JavaScript
+                        </MudText>
+                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://calculadorajuanmanuelramirez.netlify.app/" Target="_blank">Ver</MudButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div>
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
+                            Reproductor de Música
+                        </MudText>
+                    </div>
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
+                            MP3
+                        </MudText>
+                    </div>
+                    <br />
+                    <div>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Descripcion:
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Este proyecto consiste en desarrollar un reproductor de música que permita a los usuarios reproducir, pausar y navegar entre pistas de audio. 
+                            El reproductor ofrecerá una interfaz amigable con controles básicos y una lista de reproducción.
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
+                            Tecnologías Utilizadas
+                        </MudText>
+                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                            Blazor - C# - HTML5 - CSS - JavaScript
+                        </MudText>
+                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://musicplayerjuanmanuelramirez.netlify.app/" Target="_blank">Ver</MudButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <!-- #endregion -->
+</MudGrid>
+<!-- #endregion -->
+<!-- #region Servicios -->
+<MudGrid Justify="Justify.Center" id="Servicios">
+    <MudItem xs="12" Style="display:flex; justify-content:center; align-items:center; padding-top:50px;">
+        <MudPaper Elevation="0" Class="mud-width-full" Style="padding-top: 1px !important;">
+            <MudText Typo="Typo.h3" Class="texto-izquierda-h-3-seccion-inicio" Style="text-align: center !important; margin-left:0 !important;">Nuestros servicios</MudText>
+            <MudText Typo="Typo.body1" Class="texto-izquierda-h-3-seccion-inicio" Style="text-align: center !important; margin-left:0 !important; color:#64748b;">
+                Ofrecemos una amplia gama de servicios profesionales para ayudarle a alcanzar sus objetivos. Desde desarrollo web hasta soluciones de bases de datos, tenemos todo lo que necesita.
+                </MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4 h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/code.png" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            Desarrollos Web
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="margin-right:20px;">
+                            Ofrecemos servicios de desarrollo web completos y personalizados para satisfacer las necesidades específicas de su negocio.
+                            Nuestros desarrollos web se enfocan en crear sitios y aplicaciones web modernos,
+                            eficientes y escalables, que brinden una excelente experiencia de usuario y una interfaz intuitiva.
+                            Incluyendo servicios de hosting, dominios e indexación en Google para asegurar la visibilidad de tu sitio.
+                        </MudText>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4 h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/coding.png" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            Aplicaciones de escritorio
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="margin-right:20px;">
+                            Proveemos servicios de desarrollo de aplicaciones de escritorio para Windows, diseñadas para satisfacer las necesidades específicas de su negocio.
+                            Nuestras soluciones de escritorio son seguras, eficientes y fáciles de usar, enfocadas en mejorar la productividad y eficiencia operativa.
+                        </MudText>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
+        <MudPaper Elevation="2" Class="mud-width-full py-4 h-100">
+            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
+                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudImage Src="./img/server-storage.png" />
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
+                            Soluciones de bases de datos
+                        </MudText>
+                    </div>
+                    <div style="display:flex; justify-content:center; align-items:center;">
+                        <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="margin-right:20px;">
+                            Ofrecemos servicios completos de gestión y desarrollo de bases de datos, asegurando la integridad, seguridad y eficiencia de sus datos. 
+                            Nuestras soluciones están diseñadas para optimizar el almacenamiento y acceso a la información, facilitando la toma de decisiones informadas y mejorando el rendimiento general del sistema.
+                        </MudText>
+                    </div>
+                </div>
+            </div>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+<!-- #endregion -->
