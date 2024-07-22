@@ -17,7 +17,7 @@
       "url": "css\/bootstrap\/bootstrap.min.css.map"
     },
     {
-      "hash": "sha256-a3qUHm2PxS4CQ65C7fyl6W1c0nuCUssiAG5UpKeAhhk=",
+      "hash": "sha256-tsBUTPAjkOvbjjSkJgoxbSHx6ogL+Vbl\/\/C8iC1Z1+s=",
       "url": "cvJuanManuelRamirez.pdf"
     },
     {
@@ -137,7 +137,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-0fXk+4pP9DqNyl\/M1yQ8JvZsbxFscAbRjULpFmisx4c=",
+      "hash": "sha256-0GpjafPIjKETELkr8DnfFhtrfrtBypNcGhesWDdk3s0=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -313,7 +313,7 @@
       "url": "_framework\/Newtonsoft.Json.wasm"
     },
     {
-      "hash": "sha256-e7\/p7LXhMsmFo3WpMa397KDiHvOgsu4kvfkiBRSzG\/U=",
+      "hash": "sha256-CWOD9dLTFOWgwJf4UNTPiIrkZsdv\/DxNr\/S1eKMMKcY=",
       "url": "_framework\/PortafolioJMRH.wasm"
     },
     {
@@ -549,5 +549,5 @@
       "url": "_content\/MudBlazor\/MudBlazor.min.js"
     }
   ],
-  "version": "NbWpxNsL"
+  "version": "Lamz9AwD"
 };
