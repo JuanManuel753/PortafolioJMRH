@@ -131,6 +131,7 @@
         background: var(--gradient-1);
         color: white;
         overflow: hidden;
+        padding: 80px 0 40px; /* Añadido padding para móviles */
     }
 
         .header::before {
@@ -160,6 +161,7 @@
         position: relative;
         max-width: 800px;
         padding: 0 20px;
+        width: 100%; /* Añadido para móviles */
     }
 
     .profile-container {
@@ -225,14 +227,17 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         animation: slideInUp 1s ease-out;
+        word-wrap: break-word; /* Añadido para móviles */
     }
 
     .header-subtitle {
-        font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+        font-size: clamp(1rem, 2.5vw, 1.5rem); /* Ajustado tamaño mínimo */
         font-weight: 400;
         margin-bottom: 40px;
         opacity: 0.9;
         animation: slideInUp 1s ease-out 0.2s both;
+        line-height: 1.6; /* Mejorado interlineado */
+        word-wrap: break-word; /* Añadido para móviles */
     }
 
     .cta-buttons {
@@ -255,6 +260,7 @@
         display: inline-flex;
         align-items: center;
         gap: 10px;
+        white-space: nowrap; /* Evita que el texto se divida */
     }
 
     .btn-primary {
@@ -322,6 +328,7 @@
         padding: 10px 20px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         transition: all 0.3s ease;
+        max-width: calc(100vw - 40px); /* Evita desbordamiento en móviles */
     }
 
         .nav.scrolled {
@@ -347,6 +354,7 @@
         border-radius: 25px;
         transition: all 0.3s ease;
         position: relative;
+        white-space: nowrap; /* Evita que el texto se divida */
     }
 
     .nav.scrolled .nav-link {
@@ -407,16 +415,17 @@
             }
 
         .section-title p {
-            color: white;
-            font-size: 1.2rem;
+            color: var(--text-light); /* Corregido color */
+            font-size: clamp(1rem, 2vw, 1.2rem); /* Responsive */
             max-width: 600px;
             margin: 0 auto;
+            line-height: 1.6;
         }
 
     /* Technologies Grid */
     .tech-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Reducido minWidth */
         gap: 40px;
         margin-top: 60px;
     }
@@ -516,7 +525,7 @@
 
     .projects-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Reducido minWidth */
         gap: 40px;
     }
 
@@ -567,6 +576,7 @@
         font-weight: 600;
         position: relative;
         z-index: 1;
+        word-wrap: break-word; /* Para títulos largos en móviles */
     }
 
     .project-content {
@@ -578,6 +588,7 @@
             margin-bottom: 25px;
             line-height: 1.7;
             font-size: 1rem;
+            word-wrap: break-word; /* Para textos largos */
         }
 
     .project-tech {
@@ -608,6 +619,7 @@
         display: flex;
         gap: 15px;
         justify-content: center;
+        flex-wrap: wrap; /* Permite que los botones se envuelvan en móviles */
     }
 
     .project-link {
@@ -622,6 +634,7 @@
         font-weight: 500;
         font-size: 0.9rem;
         transition: all 0.3s ease;
+        white-space: nowrap; /* Evita que el texto se divida */
     }
 
         .project-link:hover {
@@ -646,7 +659,7 @@
     /* Contact */
     .contact-info {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Reducido minWidth */
         gap: 40px;
         text-align: center;
     }
@@ -738,6 +751,7 @@
             font-size: 1.1rem;
             position: relative;
             z-index: 1;
+            word-wrap: break-word; /* Para móviles */
         }
 
     /* Scroll animations */
@@ -762,20 +776,59 @@
         }
     }
 
-    /* Responsive */
+    /* Responsive Mejorado */
     @@media (max-width: 768px) {
         .nav {
-            top: 20px;
-            left: 20px;
-            right: 20px;
+            top: 15px;
+            left: 15px;
+            right: 15px;
             transform: none;
-            width: calc(100% - 40px);
+            width: calc(100% - 30px);
+            padding: 8px 15px;
         }
 
         .nav-list {
-            gap: 15px;
+            gap: 8px; /* Reducido gap */
             justify-content: center;
             flex-wrap: wrap;
+        }
+
+        .nav-link {
+            padding: 6px 12px;
+            font-size: 0.8rem; /* Reducido tamaño */
+        }
+
+        .header {
+            padding: 100px 0 60px; /* Más espacio para la navegación */
+        }
+
+        .header-content {
+            padding: 0 15px;
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            font-size: 60px;
+        }
+
+        .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn {
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            margin-bottom: 60px;
         }
 
         .tech-grid {
@@ -790,15 +843,16 @@
 
         .contact-info {
             grid-template-columns: 1fr;
+            gap: 30px;
         }
 
-        .cta-buttons {
-            flex-direction: column;
-            align-items: center;
+        .project-actions {
+            gap: 10px;
         }
 
-        .section {
-            padding: 80px 0;
+        .project-link {
+            flex: 1;
+            min-width: 120px;
         }
     }
 
@@ -807,8 +861,83 @@
             padding: 0 15px;
         }
 
+        .nav {
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            width: calc(100% - 20px);
+            padding: 8px 10px;
+        }
+
+        .nav-list {
+            gap: 5px;
+        }
+
+        .nav-link {
+            padding: 5px 8px;
+            font-size: 0.75rem;
+        }
+
+        .header {
+            padding: 90px 0 50px;
+        }
+
+        .header-content {
+            padding: 0 10px;
+        }
+
+        .header-subtitle {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            font-size: 50px;
+        }
+
         .tech-card, .project-content, .contact-item {
+            padding: 25px 20px;
+        }
+
+        .project-header {
             padding: 30px 20px;
+        }
+
+            .project-header h3 {
+                font-size: 1.3rem;
+            }
+
+        .btn {
+            padding: 14px 24px;
+            font-size: 0.9rem;
+        }
+
+        .floating-element {
+            width: 40px;
+            height: 40px;
+        }
+
+        .footer p {
+            font-size: 1rem;
+        }
+    }
+
+    /* Para pantallas muy pequeñas */
+    @@media (max-width: 350px) {
+        .nav-link {
+            padding: 4px 6px;
+            font-size: 0.7rem;
+        }
+
+        .header-subtitle {
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 0.85rem;
         }
     }
 </style>
@@ -852,9 +981,11 @@
                 <div class="profile-img">👨‍💻</div>
             </div>
             <h1>Desarrollador .NET</h1>
-            <p class="header-subtitle">Soy desarrollador de software enfocado en crear soluciones innovadoras y eficientes tanto en entornos web como de escritorio. 
-                                       Me impulsa la curiosidad y el deseo constante de aprender, lo que me lleva a explorar y dominar nuevas tecnologías para mantenerme siempre a la vanguardia. 
-                                       Disfruto enfrentar desafíos que me permitan crecer profesionalmente y aportar valor mediante software que marque la diferencia.</p>
+            <p class="header-subtitle">
+                Soy desarrollador de software enfocado en crear soluciones innovadoras y eficientes tanto en entornos web como de escritorio.
+                Me impulsa la curiosidad y el deseo constante de aprender, lo que me lleva a explorar y dominar nuevas tecnologías para mantenerme siempre a la vanguardia.
+                Disfruto enfrentar desafíos que me permitan crecer profesionalmente y aportar valor mediante software que marque la diferencia.
+            </p>
             <div class="cta-buttons">
                 <a href="#proyectos-empresariales" class="btn btn-primary">
                     <i class="fas fa-code"></i>
@@ -948,8 +1079,10 @@
                         <h3>Taxco Finances</h3>
                     </div>
                     <div class="project-content">
-                        <p>sistema web de pago de nóminas para gestionar el procesamiento de nóminas de los trabajadores de las empresas registradas en el sistema de Taxco Finances. 
-                            El sistema permite a las empresas administrar de manera eficiente sus procesos de pago, asegurando precisión y cumplimiento normativo.</p>
+                        <p>
+                            sistema web de pago de nóminas para gestionar el procesamiento de nóminas de los trabajadores de las empresas registradas en el sistema de Taxco Finances.
+                            El sistema permite a las empresas administrar de manera eficiente sus procesos de pago, asegurando precisión y cumplimiento normativo.
+                        </p>
                         <div class="project-tech">
                             <span class="project-tech-tag">Blazor Web Assembly</span>
                             <span class="project-tech-tag">C#</span>
@@ -993,9 +1126,11 @@
                         <h3>Virtualizacion De Componentes - Formularios</h3>
                     </div>
                     <div class="project-content">
-                        <p>Este proyecto tiene como objetivo digitalizar diversos formularios que tradicionalmente se llenaban a mano, 
-                            transformándolos en formularios web interactivos y accesibles. Esto facilita la recolección y gestión de datos, 
-                            mejorando la eficiencia y reduciendo errores manuales.</p>
+                        <p>
+                            Este proyecto tiene como objetivo digitalizar diversos formularios que tradicionalmente se llenaban a mano,
+                            transformándolos en formularios web interactivos y accesibles. Esto facilita la recolección y gestión de datos,
+                            mejorando la eficiencia y reduciendo errores manuales.
+                        </p>
                         <div class="project-tech">
                             <span class="project-tech-tag">Blazor WASM</span>
                             <span class="project-tech-tag">MudBlazor</span>
@@ -1021,8 +1156,10 @@
                         <h3>Proyecto de Entrada y Salida (Escritorio)</h3>
                     </div>
                     <div class="project-content">
-                        <p>Este proyecto automatiza el proceso de entrada y salida de implementos utilizando tecnología de código de barras, 
-                            mejorando la eficiencia y la precisión en la gestión de inventarios y el ingreso de personas.</p>
+                        <p>
+                            Este proyecto automatiza el proceso de entrada y salida de implementos utilizando tecnología de código de barras,
+                            mejorando la eficiencia y la precisión en la gestión de inventarios y el ingreso de personas.
+                        </p>
                         <div class="project-tech">
                             <span class="project-tech-tag">Windows Forms</span>
                             <span class="project-tech-tag">.NetCore</span>
@@ -1043,8 +1180,10 @@
                         <h3>Proyecto de Carteleras de Cine</h3>
                     </div>
                     <div class="project-content">
-                        <p>Este proyecto, completado como parte de un curso en Udemy, consiste en desarrollar una aplicación web para mostrar las carteleras de cine, 
-                            incluyendo detalles de películas, votos a las peliculas, Muestra de actores y sus personajes.</p>
+                        <p>
+                            Este proyecto, completado como parte de un curso en Udemy, consiste en desarrollar una aplicación web para mostrar las carteleras de cine,
+                            incluyendo detalles de películas, votos a las peliculas, Muestra de actores y sus personajes.
+                        </p>
                         <div class="project-tech">
                             <span class="project-tech-tag">Blazor Web Assembly</span>
                             <span class="project-tech-tag">MudBlazor</span>
@@ -1072,8 +1211,10 @@
                         <h3>Juego de Saltos (Estilo Dino de Google Chrome)</h3>
                     </div>
                     <div class="project-content">
-                        <p>Este proyecto es un juego de saltos similar al famoso juego del dinosaurio de Google Chrome, donde el jugador debe evitar obstáculos saltando sobre ellos. 
-                            El juego incluirá un selector de personajes que permite al jugador elegir entre tres diferentes personajes.</p>
+                        <p>
+                            Este proyecto es un juego de saltos similar al famoso juego del dinosaurio de Google Chrome, donde el jugador debe evitar obstáculos saltando sobre ellos.
+                            El juego incluirá un selector de personajes que permite al jugador elegir entre tres diferentes personajes.
+                        </p>
                         <div class="project-tech">
                             <span class="project-tech-tag">Html</span>
                             <span class="project-tech-tag">Css</span>
@@ -1098,8 +1239,10 @@
                         <h3>Reloj Analogico - Digital</h3>
                     </div>
                     <div class="project-content">
-                        <p>Este proyecto consiste en la creación de un reloj que muestra la hora tanto en formato analógico como digital. 
-                            La interfaz incluye un reloj con manecillas que representan las horas, minutos y segundos, así como una pantalla digital que muestra la hora en formato numérico</p>
+                        <p>
+                            Este proyecto consiste en la creación de un reloj que muestra la hora tanto en formato analógico como digital.
+                            La interfaz incluye un reloj con manecillas que representan las horas, minutos y segundos, así como una pantalla digital que muestra la hora en formato numérico
+                        </p>
                         <div class="project-tech">
                             <span class="project-tech-tag">Blazor</span>
                             <span class="project-tech-tag">Hmtml</span>
@@ -1125,8 +1268,10 @@
                         <h3>Caculadora</h3>
                     </div>
                     <div class="project-content">
-                        <p>Este proyecto implica desarrollar una calculadora que no solo realiza operaciones aritméticas básicas (suma, resta, multiplicación y división)
-                            sino que también incluye la funcionalidad para calcular la raíz cuadrada de un número.</p>
+                        <p>
+                            Este proyecto implica desarrollar una calculadora que no solo realiza operaciones aritméticas básicas (suma, resta, multiplicación y división)
+                            sino que también incluye la funcionalidad para calcular la raíz cuadrada de un número.
+                        </p>
                         <div class="project-tech">
                             <span class="project-tech-tag">Blazor</span>
                             <span class="project-tech-tag">Hmtml</span>
@@ -1152,7 +1297,7 @@
                     </div>
                     <div class="project-content">
                         <p>
-                            Este proyecto consiste en desarrollar un reproductor de música que permita a los usuarios reproducir, pausar y navegar entre pistas de audio. 
+                            Este proyecto consiste en desarrollar un reproductor de música que permita a los usuarios reproducir, pausar y navegar entre pistas de audio.
                             El reproductor ofrecerá una interfaz amigable con controles básicos y una lista de reproducción.
                         </p>
                         <div class="project-tech">
@@ -1186,36 +1331,36 @@
             </div>
             <div class="contact-info">
                 <a href="mailto:juanmanuelramirez753@outlook.com" target="_blank">
-                <div class="contact-item fade-in-up">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
+                    <div class="contact-item fade-in-up">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Correo</h3>
                     </div>
-                    <h3>Correo</h3>
-                </div>
                 </a>
                 <a href="https://wa.me/+573176374276" target="_blank">
-                <div class="contact-item fade-in-up">
-                    <div class="contact-icon">
-                        <i class="fab fa-whatsapp"></i>
+                    <div class="contact-item fade-in-up">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3>Teléfono - WhatsApp</h3>
                     </div>
-                    <h3>Teléfono - WhatsApp</h3>
-                </div>
                 </a>
                 <a href="https://www.linkedin.com/in/juan-manuel-r-08885b128/" target="_blank">
-                <div class="contact-item fade-in-up">
-                    <div class="contact-icon">
-                        <i class="fab fa-linkedin"></i>
+                    <div class="contact-item fade-in-up">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <h3>LinkedIn</h3>
                     </div>
-                    <h3>LinkedIn</h3>
-                </div>
                 </a>
                 <a href="https://github.com/JuanManuel753" target="_blank">
-                <div class="contact-item fade-in-up">
-                    <div class="contact-icon">
-                        <i class="fab fa-github"></i>
+                    <div class="contact-item fade-in-up">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h3>GitHub</h3>
                     </div>
-                    <h3>GitHub</h3>
-                </div>
                 </a>
 
             </div>
