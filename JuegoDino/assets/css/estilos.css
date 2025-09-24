@@ -1,0 +1,310 @@
+
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+   
+
+.contenedor-de-todo{
+    height: 100vh;
+    background: #275da3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+.contenedor {
+    width: 1220px;
+    height: 580px;
+    margin: 0 auto;
+    
+    position: absolute;
+    background-image: url("../img/Recursos-para-el-video-juego/Fondo-Actualizado.png");
+    display: block; 
+    background-size:cover;
+    
+    /* background: linear-gradient(#62a6ff, #c8c8c8) ;linear-gradient(#90ebff, white); */
+    transition: background-color 0.25s linear;
+    overflow: hidden;
+}
+.contenedorLuna{
+    width: 309px;
+    height: 230px;   
+    position: absolute;
+    top: -10px;
+    display:none;
+    background-image: url("../img/luna.gif");
+}
+
+/*.contenedorSol{
+    width: 180px;
+    height: 187px;
+
+    position: absolute;
+    display: block;
+    z-index: 10;
+    background-image: url("../img/sol.gif");
+}*/
+.contenedorlluvia{
+    width: 1220px;
+    height: 580px;
+    position: absolute;
+    background-image: url("../img/reallluvia.gif");
+    display: none;
+    background-size:cover;
+    z-index : 3;
+}
+.mañana{
+    background-color: #66c9c9;
+}
+.mediodia {
+    background-color: #ffb0e3;
+}
+.tarde {
+    background-color: #ff8c08;
+}
+.noche {
+    background-color: #0d0d31;  
+}
+
+
+.mañana1{
+    background-color: #66c9c9;
+}
+.mediodia1 {
+    background-color: #ffb0e3;
+}
+.tarde1 {
+    background-color: #ff8c08;
+}
+
+.noche1 {
+    background-color: #0d0d31;
+}
+.mañanafinal{
+    background-color: #66c9c9;
+}
+
+
+
+
+
+.dino1 {
+    width: 84px;
+    height: 84px;
+    position: absolute;
+    bottom: 22px;
+    left: 42px;
+    z-index: 2;
+    background: url(../img/dino23.png) repeat-x 100px 0px;
+    background-size: 336px 84px;
+    background-position-x: 0px;
+}
+.dino-corriendo1 {
+    animation: animarDino 0.25s steps(2) infinite;
+}
+.dino-estrellado1 {
+    background-position-x: -252px;
+}
+
+
+.dino2 {
+    width: 84px;
+    height: 84px;
+    position: absolute;
+    bottom: 22px;
+    left: 42px;
+    z-index: 2;
+    background: url(../img/Recursogirl-Actualizada.png) repeat-x 100px 0px;
+    background-size: 336px 84px;
+    background-position-x: 0px;
+}
+.dino-corriendo2 {
+    animation: animarDino 0.25s steps(2) infinite;
+}
+.dino-estrellado2 {
+    background-position-x: -252px;
+}
+
+/* /////////////////////////////////////////////////// */
+
+
+.dino3 {
+    width: 84px;
+    height: 84px;
+    position: absolute;
+    bottom: 22px;
+    left: 42px;
+    z-index: 2;
+    background: url(../img/Recursomen-Actualizada.png) repeat-x 100px 0px;
+    background-size: 336px 84px;
+    background-position-x: 0px;
+}
+.dino-corriendo3 {
+    animation: animarDino 0.25s steps(2) infinite;
+}
+.dino-estrellado3 {
+    background-position-x: -252px;
+}
+
+
+
+/* /////////////////////////////////////////////////// */
+
+.suelo {
+    width: 200%;
+    height: 42px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    background: url(../img/suelo.png) repeat-x 0px 0px;
+    background-size: 50% 42px;
+
+}
+
+.cactus{
+    width: 46px;
+    height: 96px;
+
+    position: absolute;
+    bottom: 30px;
+    left: 600px;
+    
+
+    background: url(../img/cactus1.png) no-repeat;
+}
+.cactus2{
+    width: 90px;
+    height: 66px;
+    bottom: 20px;
+    
+    background: url(../img/Carro.png) no-repeat;
+    background-size: 90px 66px; 
+}
+.Pajaroalto{
+    width: 110px;
+    height: 60px;
+
+    position: absolute;
+    
+    bottom: 120px;
+    background: url(../img/Recursos-para-el-video-juego/Pajaro-Animacion-lenta-unscreen.gif) no-repeat;
+    background-size: 110px 60px; 
+}
+.PajaroMedio{
+    width: 100px;
+    height: 60px;
+
+    position: absolute;
+    
+    bottom: 80px;
+    background: url(../img/Recursos-para-el-video-juego/Pajaro-Animacion-lenta-unscreen.gif) no-repeat;
+    background-size: 110px 60px; 
+}
+.Pajarobajo{
+    width: 80px;
+    height: 85px;
+    position: absolute;
+    
+    bottom: 32px;
+    background: url(../img/Viejita.png) no-repeat;
+    background-size: 80px 85px;  
+}
+
+
+/* aqui abajo van hacer las propiedades del perrito*/
+.Perrito{
+    width: 85px;
+    height: 85px;
+    position: absolute;
+    
+    bottom: 20px;
+    background: url(../img/Perro.png) no-repeat; 
+    background-size: 89px 89px;  
+}
+
+.nube{
+    width: 92px;
+    height: 26px;
+
+    position: absolute;
+    z-index: 0;
+
+    background: url(../img/nube.png) no-repeat;
+    background-size: 92px 26px;
+}
+
+.score{
+    width: 100px;
+    height: 30px;
+
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    z-index: 10;
+
+    color: #d48871;
+    font-family: Verdana;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: right;
+}
+.BestScore{
+    width: 100px;
+    height: 30px;
+
+    position: absolute;
+    top: 10px;
+    left: 550px;
+    z-index: 10;
+
+    color: #d48871;
+    font-family: Verdana;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.game-over{
+    display: none;
+    position: absolute;
+    width: 1220px;
+    height: 580px;
+    background-color: #1f22278a;
+    text-align: center;
+    color: #ffffff;
+    font-size: 30px;
+    font-family: 'Hubballi', cursive;
+    font-weight: 700;
+    z-index: 3;
+}
+
+.game-over-contenido{
+    width: 1220px;
+    height: 580px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.game-over-contenido>h1{
+    margin: 30px;
+}
+
+@keyframes animarDino{
+    from{
+        background-position-x: -84px;
+    }
+    to{
+        background-position-x: -252px;
+    }
+}
+
+

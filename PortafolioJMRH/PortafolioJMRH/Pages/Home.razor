@@ -1,966 +1,1447 @@
-﻿@page "/"
+﻿@layout EmptyLayout
+@page "/"
 @inject HttpClient HttpClient
 @inject IJSRuntime JSRuntime
 
 <style>
-    .texto-izquierda-subtitle-2-seccion-inicio{
-        font-family: 'Geologica', Akzidenz-Grotesk BQ;
-        text-align: justify;
-        margin-left: 40px;
-        color: #64748b;
-        margin-right: 40px;
-    }
-    .texto-izquierda-h-3-seccion-inicio
-    {
-        font-family: 'Geologica', Akzidenz-Grotesk BQ;
-        text-align: start;
-        margin-left: 30px;
-        color:black;
+    @@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+        --primary-blue: #2196F3;
+        --light-blue: #E3F2FD;
+        --dark-blue: #1976D2;
+        --accent-blue: #42A5F5;
+        --text-dark: #0F172A;
+        --text-light: #64748B;
+        --white: #FFFFFF;
+        --gray-light: #F8FAFC;
+        --gradient-1: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+        --gradient-2: linear-gradient(135deg, #2196F3 0%, #42A5F5 100%);
+        --gradient-3: linear-gradient(135deg, #64B5F6 0%, #2196F3 100%);
+        --shadow-soft: 0 4px 6px -1px rgba(33, 150, 243, 0.1), 0 2px 4px -1px rgba(33, 150, 243, 0.06);
+        --shadow-medium: 0 10px 15px -3px rgba(33, 150, 243, 0.1), 0 4px 6px -2px rgba(33, 150, 243, 0.05);
+        --shadow-large: 0 25px 50px -12px rgba(33, 150, 243, 0.25);
+        --border-radius: 20px;
     }
 
-    .Mud-grid-transform {
-        transition: transform 0.3s ease-in-out;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
-        .Mud-grid-transform:hover {
-            transform: scale(1.05);
+    body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        overflow-x: hidden;
+        background: var(--white);
+    }
+
+    /* Glass morphism effect */
+    .glass {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    /* Animated background */
+    .bg-animated {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: linear-gradient(-45deg, #2196F3, #42A5F5, #64B5F6, #1976D2);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+    }
+
+    @@keyframes gradientShift {
+        0% {
+            background-position: 0% 50%;
         }
 
+        50% {
+            background-position: 100% 50%;
+        }
 
-   /* seccion contacto */
-    
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* Floating elements */
+    .floating-elements {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .floating-element {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+    }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            top: 80%;
+            left: 40%;
+            animation-delay: 4s;
+        }
+
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-20px) rotate(180deg);
+        }
+    }
+
+    /* Header */
+    .header {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: var(--gradient-1);
+        color: white;
+        overflow: hidden;
+    }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="25" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="25" r="1" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: backgroundMove 20s linear infinite;
+        }
+
+    @@keyframes backgroundMove {
+        0% {
+            transform: translate(0, 0);
+        }
+
+        100% {
+            transform: translate(-100px, -100px);
+        }
+    }
+
+    .header-content {
+        text-align: center;
+        z-index: 1;
+        position: relative;
+        max-width: 800px;
+        padding: 0 20px;
+    }
+
+    .profile-container {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 40px;
+    }
+
+    .profile-img {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 80px;
+        margin: 0 auto;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        animation: profilePulse 3s ease-in-out infinite;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .profile-img::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: rotate 4s linear infinite;
+        }
+
+    @@keyframes profilePulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    @@keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .header h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: slideInUp 1s ease-out;
+    }
+
+    .header-subtitle {
+        font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+        font-weight: 400;
+        margin-bottom: 40px;
+        opacity: 0.9;
+        animation: slideInUp 1s ease-out 0.2s both;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: slideInUp 1s ease-out 0.4s both;
+    }
+
+    .btn {
+        padding: 16px 32px;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .btn-primary {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+    }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-large);
+        }
+
+    .btn-secondary {
+        background: white;
+        color: var(--primary-blue);
+        border: 2px solid white;
+    }
+
+        .btn-secondary:hover {
+            background: var(--light-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-large);
+        }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    @@keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Navigation */
+    .nav {
+        position: fixed;
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 50px;
+        padding: 10px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+        .nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-medium);
+        }
+
+    .nav-list {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+        margin: 0;
+        padding: 10px 0;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .nav.scrolled .nav-link {
+        color: var(--text-dark);
+    }
+
+    .nav-link:hover, .nav-link.active {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+
+    .nav.scrolled .nav-link:hover, .nav.scrolled .nav-link.active {
+        background: var(--primary-blue);
+        color: white;
+    }
+
+    /* Container */
     .container {
-  position: relative;
-  width: 100%;
-  padding: 2rem;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
 
-.form {
-  width: 100%;
-  max-width: 820px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  overflow: hidden;
-}
+    /* Section */
+    .section {
+        padding: 120px 0;
+        position: relative;
+    }
 
-form {
-  padding: 2.3rem 2.2rem;
-  z-index: 10;
-  overflow: hidden;
-  position: relative;
-}
+        .section:nth-child(even) {
+            background: var(--gray-light);
+        }
 
-.contact-info {
-  padding: 2.3rem 2.2rem;
-  position: relative;
-        background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-}
+    .section-title {
+        text-align: center;
+        margin-bottom: 80px;
+    }
 
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
 
-@@media (max-width: 850px) {
-  .form {
-    grid-template-columns: 1fr;
-  }
-}
+            .section-title h2::after {
+                content: '';
+                position: absolute;
+                width: 80px;
+                height: 4px;
+                background: var(--gradient-1);
+                bottom: -15px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 2px;
+            }
 
-@@media (max-width: 480px) {
-  .container {
-    padding: 1.5rem;
-  }
+        .section-title p {
+            color: white;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-  form,
-  .contact-info {
-    padding: 1.7rem 1.6rem;
-  }
-}
-/*   estrellas
- */#stars {
-  width: 1px;
-  height: 1px;
-  background: transparent;
-  box-shadow: 1685px 1412px #FFF , 844px 1438px #FFF , 879px 1582px #FFF , 1461px 1983px #FFF , 722px 1800px #FFF , 218px 563px #FFF , 1303px 1218px #FFF , 413px 757px #FFF , 104px 1603px #FFF , 8px 1920px #FFF , 1020px 1734px #FFF , 381px 799px #FFF , 468px 1191px #FFF , 1930px 1064px #FFF , 1942px 1489px #FFF , 1243px 985px #FFF , 1331px 1510px #FFF , 1605px 1834px #FFF , 44px 206px #FFF , 1956px 1065px #FFF , 538px 628px #FFF , 688px 1112px #FFF , 1330px 97px #FFF , 165px 1928px #FFF , 456px 1140px #FFF , 872px 820px #FFF , 1798px 71px #FFF , 1649px 1042px #FFF , 474px 909px #FFF , 1815px 19px #FFF , 1923px 356px #FFF , 1618px 558px #FFF , 1675px 1096px #FFF , 449px 1097px #FFF , 671px 1843px #FFF , 796px 767px #FFF , 1764px 363px #FFF , 1042px 1038px #FFF , 899px 48px #FFF , 855px 1493px #FFF , 331px 6px #FFF , 1453px 676px #FFF , 1557px 1441px #FFF , 1822px 99px #FFF , 1456px 1956px #FFF , 1693px 1233px #FFF , 985px 70px #FFF , 913px 864px #FFF , 52px 1286px #FFF , 1571px 253px #FFF , 1227px 1398px #FFF , 968px 1815px #FFF , 1553px 1553px #FFF , 643px 598px #FFF , 1060px 1164px #FFF , 709px 810px #FFF , 1669px 1070px #FFF , 837px 1591px #FFF , 1982px 1046px #FFF , 1020px 1679px #FFF , 1212px 969px #FFF , 1041px 1320px #FFF , 1753px 1902px #FFF , 1201px 95px #FFF , 1644px 483px #FFF , 1227px 1003px #FFF , 528px 404px #FFF , 200px 630px #FFF , 1420px 1594px #FFF , 1807px 1577px #FFF , 576px 788px #FFF , 966px 1494px #FFF , 972px 64px #FFF , 1348px 692px #FFF , 12px 574px #FFF , 1576px 516px #FFF , 1781px 1949px #FFF , 585px 109px #FFF , 193px 475px #FFF , 1585px 704px #FFF , 1708px 1127px #FFF , 666px 1165px #FFF , 587px 1946px #FFF , 285px 642px #FFF , 628px 1397px #FFF , 1465px 1182px #FFF , 1191px 120px #FFF , 1033px 1569px #FFF , 90px 656px #FFF , 1865px 152px #FFF , 662px 1292px #FFF , 559px 1682px #FFF , 756px 1682px #FFF , 1205px 1965px #FFF , 420px 110px #FFF , 1710px 1002px #FFF , 1039px 1240px #FFF , 764px 1159px #FFF , 1588px 576px #FFF , 280px 1147px #FFF , 1839px 1427px #FFF , 1604px 1688px #FFF , 1488px 1153px #FFF , 1802px 444px #FFF , 871px 1242px #FFF , 501px 756px #FFF , 52px 1214px #FFF , 1208px 1835px #FFF , 614px 127px #FFF , 1703px 1318px #FFF , 1263px 1876px #FFF , 1758px 206px #FFF , 1204px 747px #FFF , 1963px 565px #FFF , 270px 1883px #FFF , 123px 1111px #FFF , 426px 267px #FFF , 47px 903px #FFF , 1709px 589px #FFF , 1630px 1878px #FFF , 575px 376px #FFF , 1625px 915px #FFF , 787px 885px #FFF , 1570px 1697px #FFF , 321px 1478px #FFF , 1354px 1903px #FFF , 374px 1585px #FFF , 1570px 352px #FFF , 1146px 1596px #FFF , 814px 3px #FFF , 1750px 53px #FFF , 1484px 1255px #FFF , 259px 658px #FFF , 223px 1398px #FFF , 1129px 683px #FFF , 817px 1145px #FFF , 488px 53px #FFF , 1095px 775px #FFF , 1496px 1229px #FFF , 328px 1124px #FFF , 1609px 1077px #FFF , 1755px 920px #FFF , 1236px 642px #FFF , 264px 993px #FFF , 646px 1528px #FFF , 1846px 209px #FFF , 1417px 1691px #FFF , 868px 971px #FFF , 1264px 537px #FFF , 1136px 1085px #FFF , 1531px 336px #FFF , 1969px 362px #FFF , 272px 1366px #FFF , 1839px 1362px #FFF , 84px 1521px #FFF , 1107px 1825px #FFF , 1241px 1864px #FFF , 1831px 929px #FFF , 603px 1566px #FFF , 1787px 405px #FFF , 967px 1865px #FFF , 479px 1056px #FFF , 1493px 1263px #FFF , 1694px 1430px #FFF , 1799px 115px #FFF , 1674px 1625px #FFF , 169px 1979px #FFF , 1595px 1321px #FFF , 43px 1164px #FFF , 1761px 213px #FFF , 349px 1023px #FFF , 226px 1046px #FFF , 607px 616px #FFF , 1222px 119px #FFF , 554px 1078px #FFF , 1068px 881px #FFF , 1109px 1529px #FFF , 979px 1278px #FFF , 1173px 569px #FFF , 1787px 1074px #FFF , 312px 1270px #FFF , 1493px 1498px #FFF , 1646px 1971px #FFF , 87px 1238px #FFF , 1401px 1187px #FFF , 478px 723px #FFF , 1631px 1530px #FFF , 32px 1910px #FFF , 1286px 576px #FFF , 1104px 1563px #FFF , 1310px 1619px #FFF , 1787px 986px #FFF , 1972px 1875px #FFF , 1152px 951px #FFF , 1766px 1988px #FFF , 145px 399px #FFF , 1381px 424px #FFF , 782px 105px #FFF , 1914px 44px #FFF , 469px 449px #FFF , 1063px 1224px #FFF , 670px 1753px #FFF , 847px 1568px #FFF , 1234px 1995px #FFF , 1487px 503px #FFF , 840px 1348px #FFF , 235px 697px #FFF , 1997px 1772px #FFF , 152px 1703px #FFF , 98px 1068px #FFF , 978px 940px #FFF , 155px 165px #FFF , 1542px 1760px #FFF , 1199px 307px #FFF , 1594px 1745px #FFF , 386px 488px #FFF , 963px 729px #FFF , 1567px 150px #FFF , 1813px 1154px #FFF , 1664px 1865px #FFF , 1311px 491px #FFF , 321px 708px #FFF , 1362px 1903px #FFF , 1022px 1586px #FFF , 132px 1581px #FFF , 1433px 740px #FFF , 1241px 1458px #FFF , 247px 988px #FFF , 1796px 884px #FFF , 1977px 1361px #FFF , 342px 211px #FFF , 315px 297px #FFF , 464px 269px #FFF , 646px 948px #FFF , 1631px 1048px #FFF , 355px 1397px #FFF , 870px 664px #FFF , 1545px 1846px #FFF , 238px 424px #FFF , 99px 534px #FFF , 130px 1280px #FFF , 1108px 1781px #FFF , 1414px 672px #FFF , 767px 1039px #FFF , 1570px 325px #FFF , 69px 1369px #FFF , 521px 1866px #FFF , 897px 1409px #FFF , 1862px 1612px #FFF , 273px 36px #FFF , 287px 706px #FFF , 1876px 443px #FFF , 1015px 905px #FFF , 7px 437px #FFF , 51px 1440px #FFF , 1110px 261px #FFF , 419px 1582px #FFF , 100px 1619px #FFF , 101px 1976px #FFF , 1456px 1600px #FFF , 579px 1496px #FFF , 1717px 1407px #FFF , 1855px 463px #FFF , 884px 1289px #FFF , 1893px 1044px #FFF , 48px 1657px #FFF , 1502px 1800px #FFF , 1916px 1544px #FFF , 1497px 1749px #FFF , 102px 1788px #FFF , 256px 853px #FFF , 1625px 272px #FFF , 1122px 1720px #FFF , 1281px 1823px #FFF , 1625px 1505px #FFF , 1741px 1513px #FFF , 444px 934px #FFF , 1062px 688px #FFF , 1902px 1796px #FFF , 787px 842px #FFF , 1987px 784px #FFF , 72px 1791px #FFF , 220px 1086px #FFF , 1410px 1331px #FFF , 1600px 1813px #FFF , 1399px 1176px #FFF , 1651px 1868px #FFF , 1299px 1571px #FFF , 1692px 586px #FFF , 1625px 267px #FFF , 745px 956px #FFF , 47px 253px #FFF , 1654px 1678px #FFF , 1025px 1122px #FFF , 815px 51px #FFF , 482px 1163px #FFF , 742px 506px #FFF , 1370px 1848px #FFF , 1573px 1164px #FFF , 631px 896px #FFF , 1698px 1170px #FFF , 108px 1169px #FFF , 469px 227px #FFF , 1098px 1622px #FFF , 351px 1530px #FFF , 1383px 261px #FFF , 238px 827px #FFF , 585px 1262px #FFF , 289px 825px #FFF , 228px 51px #FFF , 581px 1160px #FFF , 24px 729px #FFF , 541px 1021px #FFF , 1643px 1433px #FFF , 171px 1033px #FFF , 1887px 1504px #FFF , 625px 1533px #FFF , 597px 1008px #FFF , 730px 41px #FFF , 1945px 970px #FFF , 1220px 867px #FFF , 1833px 1574px #FFF , 1645px 480px #FFF , 278px 1492px #FFF , 1986px 964px #FFF , 237px 164px #FFF , 378px 1255px #FFF , 1130px 1014px #FFF , 1422px 894px #FFF , 194px 805px #FFF , 1066px 145px #FFF , 1568px 1460px #FFF , 1026px 157px #FFF , 922px 1798px #FFF , 412px 345px #FFF , 1165px 1333px #FFF , 189px 1493px #FFF , 1354px 1527px #FFF , 402px 568px #FFF , 1432px 1674px #FFF , 1579px 479px #FFF , 1973px 1042px #FFF , 1830px 589px #FFF , 955px 770px #FFF , 1440px 675px #FFF , 853px 1646px #FFF , 853px 371px #FFF , 830px 1821px #FFF , 1214px 1494px #FFF , 707px 17px #FFF , 1424px 1810px #FFF , 72px 745px #FFF , 979px 944px #FFF , 1912px 1481px #FFF , 120px 819px #FFF , 302px 621px #FFF , 177px 476px #FFF , 1719px 1166px #FFF , 459px 1832px #FFF , 497px 1566px #FFF , 1264px 225px #FFF , 91px 46px #FFF , 968px 234px #FFF , 55px 631px #FFF , 363px 1656px #FFF , 1093px 1432px #FFF , 669px 173px #FFF , 711px 1677px #FFF , 1515px 1373px #FFF , 1916px 764px #FFF , 1976px 716px #FFF , 250px 1425px #FFF , 1006px 807px #FFF , 1267px 1147px #FFF , 1185px 1067px #FFF , 1529px 1188px #FFF , 887px 1115px #FFF , 313px 166px #FFF , 183px 1597px #FFF , 1767px 861px #FFF , 1744px 1950px #FFF , 1418px 609px #FFF , 643px 1731px #FFF , 572px 626px #FFF , 1002px 899px #FFF , 941px 1203px #FFF , 500px 289px #FFF , 1828px 1577px #FFF , 1996px 1252px #FFF , 458px 1438px #FFF , 1751px 1283px #FFF , 1299px 1257px #FFF , 333px 1143px #FFF , 1671px 1371px #FFF , 652px 779px #FFF , 925px 108px #FFF , 227px 199px #FFF , 234px 1955px #FFF , 331px 1019px #FFF , 1667px 278px #FFF , 527px 1882px #FFF , 989px 182px #FFF , 1972px 890px #FFF , 1537px 916px #FFF , 1384px 1723px #FFF , 1237px 381px #FFF , 343px 753px #FFF , 1159px 644px #FFF , 637px 670px #FFF , 1186px 1466px #FFF , 416px 270px #FFF , 148px 919px #FFF , 581px 470px #FFF , 1742px 1565px #FFF , 493px 986px #FFF , 1097px 891px #FFF , 304px 133px #FFF , 1980px 1797px #FFF , 703px 613px #FFF , 428px 1278px #FFF , 1923px 1912px #FFF , 806px 776px #FFF , 1245px 1194px #FFF , 666px 960px #FFF , 1531px 1862px #FFF , 154px 1745px #FFF , 233px 1837px #FFF , 282px 1396px #FFF , 576px 385px #FFF , 695px 10px #FFF , 453px 1572px #FFF , 1003px 863px #FFF , 1718px 445px #FFF , 74px 441px #FFF , 1352px 205px #FFF , 1931px 948px #FFF , 831px 1919px #FFF , 292px 1567px #FFF , 1844px 1345px #FFF , 1650px 1703px #FFF , 1512px 1987px #FFF , 13px 814px #FFF , 572px 1024px #FFF , 319px 1455px #FFF , 818px 497px #FFF , 1654px 1060px #FFF , 940px 700px #FFF , 620px 1985px #FFF , 1562px 66px #FFF , 1315px 577px #FFF , 272px 290px #FFF , 496px 1403px #FFF , 1848px 1157px #FFF , 1769px 1372px #FFF , 1920px 1366px #FFF , 1303px 822px #FFF , 1367px 1393px #FFF , 1786px 498px #FFF , 1914px 1721px #FFF , 987px 1546px #FFF , 335px 1867px #FFF , 1867px 773px #FFF , 1411px 1439px #FFF , 1782px 1021px #FFF , 1346px 1152px #FFF , 1524px 1658px #FFF , 1757px 1476px #FFF , 1840px 308px #FFF , 1067px 1379px #FFF , 1590px 500px #FFF , 1339px 1575px #FFF , 901px 654px #FFF , 65px 662px #FFF , 1986px 955px #FFF , 1626px 1918px #FFF , 1192px 1415px #FFF , 1758px 1864px #FFF , 718px 992px #FFF , 875px 673px #FFF , 929px 351px #FFF , 681px 1092px #FFF , 1492px 1549px #FFF , 1761px 102px #FFF , 880px 92px #FFF , 313px 777px #FFF , 205px 953px #FFF , 1585px 1507px #FFF , 218px 1058px #FFF , 1934px 262px #FFF , 1532px 1715px #FFF , 533px 1631px #FFF , 1598px 1469px #FFF , 854px 123px #FFF , 1426px 340px #FFF , 1859px 304px #FFF , 1358px 865px #FFF , 1776px 302px #FFF , 1818px 30px #FFF , 1314px 1110px #FFF , 1395px 694px #FFF , 1301px 1324px #FFF , 1450px 1471px #FFF , 210px 726px #FFF , 54px 567px #FFF , 1422px 834px #FFF , 568px 1143px #FFF , 723px 1670px #FFF , 1316px 1866px #FFF , 563px 431px #FFF , 86px 1446px #FFF , 284px 145px #FFF , 138px 1198px #FFF , 1774px 1462px #FFF , 1256px 1960px #FFF , 1442px 1504px #FFF , 258px 973px #FFF , 496px 27px #FFF , 1827px 1378px #FFF , 1265px 944px #FFF , 1265px 1279px #FFF , 825px 1046px #FFF , 293px 306px #FFF , 514px 1249px #FFF , 1180px 1170px #FFF , 1670px 129px #FFF , 1271px 525px #FFF , 1715px 1985px #FFF , 1074px 228px #FFF , 904px 388px #FFF , 1477px 885px #FFF , 1257px 1856px #FFF , 155px 1106px #FFF , 578px 1404px #FFF , 1538px 1423px #FFF , 564px 1445px #FFF , 22px 376px #FFF , 432px 286px #FFF , 90px 1572px #FFF , 280px 356px #FFF , 648px 1117px #FFF , 254px 1223px #FFF , 482px 575px #FFF , 874px 1726px #FFF , 761px 1768px #FFF , 1757px 995px #FFF , 867px 1154px #FFF , 726px 1577px #FFF , 1982px 1455px #FFF , 2000px 494px #FFF , 82px 716px #FFF , 1523px 879px #FFF , 409px 634px #FFF , 275px 837px #FFF , 18px 1877px #FFF , 59px 410px #FFF , 1239px 1128px #FFF , 1852px 1210px #FFF , 1718px 1137px #FFF , 1647px 1910px #FFF , 926px 783px #FFF , 1344px 1725px #FFF , 1547px 581px #FFF , 46px 1376px #FFF , 972px 22px #FFF , 561px 478px #FFF , 1536px 359px #FFF , 480px 188px #FFF , 1087px 1317px #FFF , 1562px 1979px #FFF , 539px 1430px #FFF , 708px 1258px #FFF , 635px 1165px #FFF , 1374px 32px #FFF , 1071px 1176px #FFF , 1758px 1445px #FFF , 1310px 1895px #FFF , 1023px 410px #FFF , 1076px 60px #FFF , 994px 661px #FFF , 1699px 1385px #FFF , 26px 800px #FFF , 1666px 1665px #FFF , 1913px 1903px #FFF , 944px 132px #FFF , 718px 1564px #FFF , 1376px 1620px #FFF , 447px 1838px #FFF , 1864px 157px #FFF , 1375px 238px #FFF , 30px 1689px #FFF , 1442px 1270px #FFF , 1101px 1111px #FFF , 1878px 1805px #FFF , 389px 1977px #FFF , 878px 1992px #FFF , 583px 798px #FFF , 46px 1107px #FFF , 20px 758px #FFF , 215px 794px #FFF , 1578px 1774px #FFF , 1004px 475px #FFF , 359px 1683px #FFF , 1275px 224px #FFF , 452px 996px #FFF , 482px 1081px #FFF , 1344px 1459px #FFF , 611px 1898px #FFF , 399px 1525px #FFF , 13px 1356px #FFF , 1161px 482px #FFF , 335px 643px #FFF , 208px 1628px #FFF , 1953px 32px #FFF , 718px 8px #FFF , 676px 1284px #FFF , 1627px 1004px #FFF , 1304px 69px #FFF , 331px 480px #FFF , 1696px 1791px #FFF , 1993px 382px #FFF , 1799px 1839px #FFF , 830px 434px #FFF , 1806px 560px #FFF , 764px 20px #FFF , 1046px 215px #FFF , 1346px 1965px #FFF , 1667px 1004px #FFF , 348px 99px #FFF , 832px 652px #FFF , 720px 1323px #FFF , 649px 1898px #FFF , 598px 726px #FFF , 150px 1672px #FFF , 928px 1414px #FFF , 1240px 1858px #FFF , 1656px 1713px #FFF , 409px 100px #FFF , 277px 677px #FFF , 1883px 37px #FFF , 1289px 1182px #FFF , 210px 438px #FFF , 1783px 846px #FFF , 1749px 1570px #FFF , 698px 505px #FFF , 5px 689px #FFF , 84px 384px #FFF , 1418px 989px #FFF , 1659px 493px #FFF , 526px 122px #FFF , 780px 1547px #FFF , 760px 1664px #FFF , 578px 1727px #FFF , 1139px 1005px #FFF , 496px 434px #FFF , 1694px 814px #FFF , 1110px 1332px #FFF , 1159px 1354px #FFF , 1238px 1187px #FFF , 709px 582px #FFF , 1057px 902px #FFF , 1363px 977px #FFF , 1411px 709px #FFF , 235px 56px #FFF , 1440px 53px #FFF , 190px 695px #FFF , 635px 1595px #FFF , 878px 1701px #FFF , 844px 776px #FFF , 1044px 937px #FFF , 111px 1689px #FFF , 415px 700px #FFF , 1992px 435px #FFF , 1134px 1017px #FFF , 1100px 242px #FFF , 1171px 1659px #FFF , 1477px 1813px #FFF , 203px 3px #FFF , 1318px 285px #FFF , 1625px 456px #FFF , 507px 29px #FFF , 676px 1603px #FFF , 576px 1004px #FFF , 885px 1740px #FFF , 49px 954px #FFF , 382px 1667px #FFF , 705px 1569px #FFF , 1026px 1281px #FFF , 1384px 1504px #FFF , 1198px 1934px #FFF , 1500px 1528px #FFF , 1991px 402px #FFF , 206px 875px #FFF , 461px 505px #FFF , 1790px 1626px #FFF , 187px 1083px #FFF , 1528px 695px #FFF , 1086px 992px #FFF , 1196px 1404px #FFF , 1375px 132px #FFF , 576px 1932px #FFF;
-  animation: animStar 50s linear infinite; }
-  #stars:after {
-    content: " ";
-    position: absolute;
-    top: 2000px;
-    width: 1px;
-    height: 1px;
-    background: transparent;
-    box-shadow: 1685px 1412px #FFF , 844px 1438px #FFF , 879px 1582px #FFF , 1461px 1983px #FFF , 722px 1800px #FFF , 218px 563px #FFF , 1303px 1218px #FFF , 413px 757px #FFF , 104px 1603px #FFF , 8px 1920px #FFF , 1020px 1734px #FFF , 381px 799px #FFF , 468px 1191px #FFF , 1930px 1064px #FFF , 1942px 1489px #FFF , 1243px 985px #FFF , 1331px 1510px #FFF , 1605px 1834px #FFF , 44px 206px #FFF , 1956px 1065px #FFF , 538px 628px #FFF , 688px 1112px #FFF , 1330px 97px #FFF , 165px 1928px #FFF , 456px 1140px #FFF , 872px 820px #FFF , 1798px 71px #FFF , 1649px 1042px #FFF , 474px 909px #FFF , 1815px 19px #FFF , 1923px 356px #FFF , 1618px 558px #FFF , 1675px 1096px #FFF , 449px 1097px #FFF , 671px 1843px #FFF , 796px 767px #FFF , 1764px 363px #FFF , 1042px 1038px #FFF , 899px 48px #FFF , 855px 1493px #FFF , 331px 6px #FFF , 1453px 676px #FFF , 1557px 1441px #FFF , 1822px 99px #FFF , 1456px 1956px #FFF , 1693px 1233px #FFF , 985px 70px #FFF , 913px 864px #FFF , 52px 1286px #FFF , 1571px 253px #FFF , 1227px 1398px #FFF , 968px 1815px #FFF , 1553px 1553px #FFF , 643px 598px #FFF , 1060px 1164px #FFF , 709px 810px #FFF , 1669px 1070px #FFF , 837px 1591px #FFF , 1982px 1046px #FFF , 1020px 1679px #FFF , 1212px 969px #FFF , 1041px 1320px #FFF , 1753px 1902px #FFF , 1201px 95px #FFF , 1644px 483px #FFF , 1227px 1003px #FFF , 528px 404px #FFF , 200px 630px #FFF , 1420px 1594px #FFF , 1807px 1577px #FFF , 576px 788px #FFF , 966px 1494px #FFF , 972px 64px #FFF , 1348px 692px #FFF , 12px 574px #FFF , 1576px 516px #FFF , 1781px 1949px #FFF , 585px 109px #FFF , 193px 475px #FFF , 1585px 704px #FFF , 1708px 1127px #FFF , 666px 1165px #FFF , 587px 1946px #FFF , 285px 642px #FFF , 628px 1397px #FFF , 1465px 1182px #FFF , 1191px 120px #FFF , 1033px 1569px #FFF , 90px 656px #FFF , 1865px 152px #FFF , 662px 1292px #FFF , 559px 1682px #FFF , 756px 1682px #FFF , 1205px 1965px #FFF , 420px 110px #FFF , 1710px 1002px #FFF , 1039px 1240px #FFF , 764px 1159px #FFF , 1588px 576px #FFF , 280px 1147px #FFF , 1839px 1427px #FFF , 1604px 1688px #FFF , 1488px 1153px #FFF , 1802px 444px #FFF , 871px 1242px #FFF , 501px 756px #FFF , 52px 1214px #FFF , 1208px 1835px #FFF , 614px 127px #FFF , 1703px 1318px #FFF , 1263px 1876px #FFF , 1758px 206px #FFF , 1204px 747px #FFF , 1963px 565px #FFF , 270px 1883px #FFF , 123px 1111px #FFF , 426px 267px #FFF , 47px 903px #FFF , 1709px 589px #FFF , 1630px 1878px #FFF , 575px 376px #FFF , 1625px 915px #FFF , 787px 885px #FFF , 1570px 1697px #FFF , 321px 1478px #FFF , 1354px 1903px #FFF , 374px 1585px #FFF , 1570px 352px #FFF , 1146px 1596px #FFF , 814px 3px #FFF , 1750px 53px #FFF , 1484px 1255px #FFF , 259px 658px #FFF , 223px 1398px #FFF , 1129px 683px #FFF , 817px 1145px #FFF , 488px 53px #FFF , 1095px 775px #FFF , 1496px 1229px #FFF , 328px 1124px #FFF , 1609px 1077px #FFF , 1755px 920px #FFF , 1236px 642px #FFF , 264px 993px #FFF , 646px 1528px #FFF , 1846px 209px #FFF , 1417px 1691px #FFF , 868px 971px #FFF , 1264px 537px #FFF , 1136px 1085px #FFF , 1531px 336px #FFF , 1969px 362px #FFF , 272px 1366px #FFF , 1839px 1362px #FFF , 84px 1521px #FFF , 1107px 1825px #FFF , 1241px 1864px #FFF , 1831px 929px #FFF , 603px 1566px #FFF , 1787px 405px #FFF , 967px 1865px #FFF , 479px 1056px #FFF , 1493px 1263px #FFF , 1694px 1430px #FFF , 1799px 115px #FFF , 1674px 1625px #FFF , 169px 1979px #FFF , 1595px 1321px #FFF , 43px 1164px #FFF , 1761px 213px #FFF , 349px 1023px #FFF , 226px 1046px #FFF , 607px 616px #FFF , 1222px 119px #FFF , 554px 1078px #FFF , 1068px 881px #FFF , 1109px 1529px #FFF , 979px 1278px #FFF , 1173px 569px #FFF , 1787px 1074px #FFF , 312px 1270px #FFF , 1493px 1498px #FFF , 1646px 1971px #FFF , 87px 1238px #FFF , 1401px 1187px #FFF , 478px 723px #FFF , 1631px 1530px #FFF , 32px 1910px #FFF , 1286px 576px #FFF , 1104px 1563px #FFF , 1310px 1619px #FFF , 1787px 986px #FFF , 1972px 1875px #FFF , 1152px 951px #FFF , 1766px 1988px #FFF , 145px 399px #FFF , 1381px 424px #FFF , 782px 105px #FFF , 1914px 44px #FFF , 469px 449px #FFF , 1063px 1224px #FFF , 670px 1753px #FFF , 847px 1568px #FFF , 1234px 1995px #FFF , 1487px 503px #FFF , 840px 1348px #FFF , 235px 697px #FFF , 1997px 1772px #FFF , 152px 1703px #FFF , 98px 1068px #FFF , 978px 940px #FFF , 155px 165px #FFF , 1542px 1760px #FFF , 1199px 307px #FFF , 1594px 1745px #FFF , 386px 488px #FFF , 963px 729px #FFF , 1567px 150px #FFF , 1813px 1154px #FFF , 1664px 1865px #FFF , 1311px 491px #FFF , 321px 708px #FFF , 1362px 1903px #FFF , 1022px 1586px #FFF , 132px 1581px #FFF , 1433px 740px #FFF , 1241px 1458px #FFF , 247px 988px #FFF , 1796px 884px #FFF , 1977px 1361px #FFF , 342px 211px #FFF , 315px 297px #FFF , 464px 269px #FFF , 646px 948px #FFF , 1631px 1048px #FFF , 355px 1397px #FFF , 870px 664px #FFF , 1545px 1846px #FFF , 238px 424px #FFF , 99px 534px #FFF , 130px 1280px #FFF , 1108px 1781px #FFF , 1414px 672px #FFF , 767px 1039px #FFF , 1570px 325px #FFF , 69px 1369px #FFF , 521px 1866px #FFF , 897px 1409px #FFF , 1862px 1612px #FFF , 273px 36px #FFF , 287px 706px #FFF , 1876px 443px #FFF , 1015px 905px #FFF , 7px 437px #FFF , 51px 1440px #FFF , 1110px 261px #FFF , 419px 1582px #FFF , 100px 1619px #FFF , 101px 1976px #FFF , 1456px 1600px #FFF , 579px 1496px #FFF , 1717px 1407px #FFF , 1855px 463px #FFF , 884px 1289px #FFF , 1893px 1044px #FFF , 48px 1657px #FFF , 1502px 1800px #FFF , 1916px 1544px #FFF , 1497px 1749px #FFF , 102px 1788px #FFF , 256px 853px #FFF , 1625px 272px #FFF , 1122px 1720px #FFF , 1281px 1823px #FFF , 1625px 1505px #FFF , 1741px 1513px #FFF , 444px 934px #FFF , 1062px 688px #FFF , 1902px 1796px #FFF , 787px 842px #FFF , 1987px 784px #FFF , 72px 1791px #FFF , 220px 1086px #FFF , 1410px 1331px #FFF , 1600px 1813px #FFF , 1399px 1176px #FFF , 1651px 1868px #FFF , 1299px 1571px #FFF , 1692px 586px #FFF , 1625px 267px #FFF , 745px 956px #FFF , 47px 253px #FFF , 1654px 1678px #FFF , 1025px 1122px #FFF , 815px 51px #FFF , 482px 1163px #FFF , 742px 506px #FFF , 1370px 1848px #FFF , 1573px 1164px #FFF , 631px 896px #FFF , 1698px 1170px #FFF , 108px 1169px #FFF , 469px 227px #FFF , 1098px 1622px #FFF , 351px 1530px #FFF , 1383px 261px #FFF , 238px 827px #FFF , 585px 1262px #FFF , 289px 825px #FFF , 228px 51px #FFF , 581px 1160px #FFF , 24px 729px #FFF , 541px 1021px #FFF , 1643px 1433px #FFF , 171px 1033px #FFF , 1887px 1504px #FFF , 625px 1533px #FFF , 597px 1008px #FFF , 730px 41px #FFF , 1945px 970px #FFF , 1220px 867px #FFF , 1833px 1574px #FFF , 1645px 480px #FFF , 278px 1492px #FFF , 1986px 964px #FFF , 237px 164px #FFF , 378px 1255px #FFF , 1130px 1014px #FFF , 1422px 894px #FFF , 194px 805px #FFF , 1066px 145px #FFF , 1568px 1460px #FFF , 1026px 157px #FFF , 922px 1798px #FFF , 412px 345px #FFF , 1165px 1333px #FFF , 189px 1493px #FFF , 1354px 1527px #FFF , 402px 568px #FFF , 1432px 1674px #FFF , 1579px 479px #FFF , 1973px 1042px #FFF , 1830px 589px #FFF , 955px 770px #FFF , 1440px 675px #FFF , 853px 1646px #FFF , 853px 371px #FFF , 830px 1821px #FFF , 1214px 1494px #FFF , 707px 17px #FFF , 1424px 1810px #FFF , 72px 745px #FFF , 979px 944px #FFF , 1912px 1481px #FFF , 120px 819px #FFF , 302px 621px #FFF , 177px 476px #FFF , 1719px 1166px #FFF , 459px 1832px #FFF , 497px 1566px #FFF , 1264px 225px #FFF , 91px 46px #FFF , 968px 234px #FFF , 55px 631px #FFF , 363px 1656px #FFF , 1093px 1432px #FFF , 669px 173px #FFF , 711px 1677px #FFF , 1515px 1373px #FFF , 1916px 764px #FFF , 1976px 716px #FFF , 250px 1425px #FFF , 1006px 807px #FFF , 1267px 1147px #FFF , 1185px 1067px #FFF , 1529px 1188px #FFF , 887px 1115px #FFF , 313px 166px #FFF , 183px 1597px #FFF , 1767px 861px #FFF , 1744px 1950px #FFF , 1418px 609px #FFF , 643px 1731px #FFF , 572px 626px #FFF , 1002px 899px #FFF , 941px 1203px #FFF , 500px 289px #FFF , 1828px 1577px #FFF , 1996px 1252px #FFF , 458px 1438px #FFF , 1751px 1283px #FFF , 1299px 1257px #FFF , 333px 1143px #FFF , 1671px 1371px #FFF , 652px 779px #FFF , 925px 108px #FFF , 227px 199px #FFF , 234px 1955px #FFF , 331px 1019px #FFF , 1667px 278px #FFF , 527px 1882px #FFF , 989px 182px #FFF , 1972px 890px #FFF , 1537px 916px #FFF , 1384px 1723px #FFF , 1237px 381px #FFF , 343px 753px #FFF , 1159px 644px #FFF , 637px 670px #FFF , 1186px 1466px #FFF , 416px 270px #FFF , 148px 919px #FFF , 581px 470px #FFF , 1742px 1565px #FFF , 493px 986px #FFF , 1097px 891px #FFF , 304px 133px #FFF , 1980px 1797px #FFF , 703px 613px #FFF , 428px 1278px #FFF , 1923px 1912px #FFF , 806px 776px #FFF , 1245px 1194px #FFF , 666px 960px #FFF , 1531px 1862px #FFF , 154px 1745px #FFF , 233px 1837px #FFF , 282px 1396px #FFF , 576px 385px #FFF , 695px 10px #FFF , 453px 1572px #FFF , 1003px 863px #FFF , 1718px 445px #FFF , 74px 441px #FFF , 1352px 205px #FFF , 1931px 948px #FFF , 831px 1919px #FFF , 292px 1567px #FFF , 1844px 1345px #FFF , 1650px 1703px #FFF , 1512px 1987px #FFF , 13px 814px #FFF , 572px 1024px #FFF , 319px 1455px #FFF , 818px 497px #FFF , 1654px 1060px #FFF , 940px 700px #FFF , 620px 1985px #FFF , 1562px 66px #FFF , 1315px 577px #FFF , 272px 290px #FFF , 496px 1403px #FFF , 1848px 1157px #FFF , 1769px 1372px #FFF , 1920px 1366px #FFF , 1303px 822px #FFF , 1367px 1393px #FFF , 1786px 498px #FFF , 1914px 1721px #FFF , 987px 1546px #FFF , 335px 1867px #FFF , 1867px 773px #FFF , 1411px 1439px #FFF , 1782px 1021px #FFF , 1346px 1152px #FFF , 1524px 1658px #FFF , 1757px 1476px #FFF , 1840px 308px #FFF , 1067px 1379px #FFF , 1590px 500px #FFF , 1339px 1575px #FFF , 901px 654px #FFF , 65px 662px #FFF , 1986px 955px #FFF , 1626px 1918px #FFF , 1192px 1415px #FFF , 1758px 1864px #FFF , 718px 992px #FFF , 875px 673px #FFF , 929px 351px #FFF , 681px 1092px #FFF , 1492px 1549px #FFF , 1761px 102px #FFF , 880px 92px #FFF , 313px 777px #FFF , 205px 953px #FFF , 1585px 1507px #FFF , 218px 1058px #FFF , 1934px 262px #FFF , 1532px 1715px #FFF , 533px 1631px #FFF , 1598px 1469px #FFF , 854px 123px #FFF , 1426px 340px #FFF , 1859px 304px #FFF , 1358px 865px #FFF , 1776px 302px #FFF , 1818px 30px #FFF , 1314px 1110px #FFF , 1395px 694px #FFF , 1301px 1324px #FFF , 1450px 1471px #FFF , 210px 726px #FFF , 54px 567px #FFF , 1422px 834px #FFF , 568px 1143px #FFF , 723px 1670px #FFF , 1316px 1866px #FFF , 563px 431px #FFF , 86px 1446px #FFF , 284px 145px #FFF , 138px 1198px #FFF , 1774px 1462px #FFF , 1256px 1960px #FFF , 1442px 1504px #FFF , 258px 973px #FFF , 496px 27px #FFF , 1827px 1378px #FFF , 1265px 944px #FFF , 1265px 1279px #FFF , 825px 1046px #FFF , 293px 306px #FFF , 514px 1249px #FFF , 1180px 1170px #FFF , 1670px 129px #FFF , 1271px 525px #FFF , 1715px 1985px #FFF , 1074px 228px #FFF , 904px 388px #FFF , 1477px 885px #FFF , 1257px 1856px #FFF , 155px 1106px #FFF , 578px 1404px #FFF , 1538px 1423px #FFF , 564px 1445px #FFF , 22px 376px #FFF , 432px 286px #FFF , 90px 1572px #FFF , 280px 356px #FFF , 648px 1117px #FFF , 254px 1223px #FFF , 482px 575px #FFF , 874px 1726px #FFF , 761px 1768px #FFF , 1757px 995px #FFF , 867px 1154px #FFF , 726px 1577px #FFF , 1982px 1455px #FFF , 2000px 494px #FFF , 82px 716px #FFF , 1523px 879px #FFF , 409px 634px #FFF , 275px 837px #FFF , 18px 1877px #FFF , 59px 410px #FFF , 1239px 1128px #FFF , 1852px 1210px #FFF , 1718px 1137px #FFF , 1647px 1910px #FFF , 926px 783px #FFF , 1344px 1725px #FFF , 1547px 581px #FFF , 46px 1376px #FFF , 972px 22px #FFF , 561px 478px #FFF , 1536px 359px #FFF , 480px 188px #FFF , 1087px 1317px #FFF , 1562px 1979px #FFF , 539px 1430px #FFF , 708px 1258px #FFF , 635px 1165px #FFF , 1374px 32px #FFF , 1071px 1176px #FFF , 1758px 1445px #FFF , 1310px 1895px #FFF , 1023px 410px #FFF , 1076px 60px #FFF , 994px 661px #FFF , 1699px 1385px #FFF , 26px 800px #FFF , 1666px 1665px #FFF , 1913px 1903px #FFF , 944px 132px #FFF , 718px 1564px #FFF , 1376px 1620px #FFF , 447px 1838px #FFF , 1864px 157px #FFF , 1375px 238px #FFF , 30px 1689px #FFF , 1442px 1270px #FFF , 1101px 1111px #FFF , 1878px 1805px #FFF , 389px 1977px #FFF , 878px 1992px #FFF , 583px 798px #FFF , 46px 1107px #FFF , 20px 758px #FFF , 215px 794px #FFF , 1578px 1774px #FFF , 1004px 475px #FFF , 359px 1683px #FFF , 1275px 224px #FFF , 452px 996px #FFF , 482px 1081px #FFF , 1344px 1459px #FFF , 611px 1898px #FFF , 399px 1525px #FFF , 13px 1356px #FFF , 1161px 482px #FFF , 335px 643px #FFF , 208px 1628px #FFF , 1953px 32px #FFF , 718px 8px #FFF , 676px 1284px #FFF , 1627px 1004px #FFF , 1304px 69px #FFF , 331px 480px #FFF , 1696px 1791px #FFF , 1993px 382px #FFF , 1799px 1839px #FFF , 830px 434px #FFF , 1806px 560px #FFF , 764px 20px #FFF , 1046px 215px #FFF , 1346px 1965px #FFF , 1667px 1004px #FFF , 348px 99px #FFF , 832px 652px #FFF , 720px 1323px #FFF , 649px 1898px #FFF , 598px 726px #FFF , 150px 1672px #FFF , 928px 1414px #FFF , 1240px 1858px #FFF , 1656px 1713px #FFF , 409px 100px #FFF , 277px 677px #FFF , 1883px 37px #FFF , 1289px 1182px #FFF , 210px 438px #FFF , 1783px 846px #FFF , 1749px 1570px #FFF , 698px 505px #FFF , 5px 689px #FFF , 84px 384px #FFF , 1418px 989px #FFF , 1659px 493px #FFF , 526px 122px #FFF , 780px 1547px #FFF , 760px 1664px #FFF , 578px 1727px #FFF , 1139px 1005px #FFF , 496px 434px #FFF , 1694px 814px #FFF , 1110px 1332px #FFF , 1159px 1354px #FFF , 1238px 1187px #FFF , 709px 582px #FFF , 1057px 902px #FFF , 1363px 977px #FFF , 1411px 709px #FFF , 235px 56px #FFF , 1440px 53px #FFF , 190px 695px #FFF , 635px 1595px #FFF , 878px 1701px #FFF , 844px 776px #FFF , 1044px 937px #FFF , 111px 1689px #FFF , 415px 700px #FFF , 1992px 435px #FFF , 1134px 1017px #FFF , 1100px 242px #FFF , 1171px 1659px #FFF , 1477px 1813px #FFF , 203px 3px #FFF , 1318px 285px #FFF , 1625px 456px #FFF , 507px 29px #FFF , 676px 1603px #FFF , 576px 1004px #FFF , 885px 1740px #FFF , 49px 954px #FFF , 382px 1667px #FFF , 705px 1569px #FFF , 1026px 1281px #FFF , 1384px 1504px #FFF , 1198px 1934px #FFF , 1500px 1528px #FFF , 1991px 402px #FFF , 206px 875px #FFF , 461px 505px #FFF , 1790px 1626px #FFF , 187px 1083px #FFF , 1528px 695px #FFF , 1086px 992px #FFF , 1196px 1404px #FFF , 1375px 132px #FFF , 576px 1932px #FFF; }
+    /* Technologies Grid */
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
+    }
 
-#stars2 {
-  width: 2px;
-  height: 2px;
-  background: transparent;
-  box-shadow: 138px 752px #FFF , 603px 531px #FFF , 513px 702px #FFF , 1283px 802px #FFF , 1475px 832px #FFF , 1500px 1256px #FFF , 920px 1477px #FFF , 1832px 1911px #FFF , 1247px 1169px #FFF , 993px 1230px #FFF , 201px 989px #FFF , 620px 290px #FFF , 79px 891px #FFF , 1765px 1984px #FFF , 1729px 1846px #FFF , 33px 361px #FFF , 1923px 448px #FFF , 659px 1474px #FFF , 1867px 361px #FFF , 1378px 605px #FFF , 1942px 175px #FFF , 654px 148px #FFF , 1061px 1288px #FFF , 181px 763px #FFF , 1290px 251px #FFF , 103px 581px #FFF , 303px 1761px #FFF , 841px 126px #FFF , 195px 1191px #FFF , 1076px 1529px #FFF , 1260px 1118px #FFF , 1882px 1192px #FFF , 486px 975px #FFF , 1673px 498px #FFF , 1151px 1418px #FFF , 1448px 249px #FFF , 1928px 687px #FFF , 1437px 1554px #FFF , 1876px 1338px #FFF , 913px 1804px #FFF , 684px 657px #FFF , 685px 687px #FFF , 503px 309px #FFF , 887px 1198px #FFF , 687px 556px #FFF , 1077px 779px #FFF , 1526px 1474px #FFF , 315px 343px #FFF , 1927px 438px #FFF , 1044px 1184px #FFF , 90px 1270px #FFF , 660px 1405px #FFF , 1655px 1173px #FFF , 244px 106px #FFF , 1738px 501px #FFF , 1915px 404px #FFF , 1808px 1344px #FFF , 11px 1765px #FFF , 1851px 1743px #FFF , 1418px 83px #FFF , 1880px 912px #FFF , 882px 901px #FFF , 1886px 1726px #FFF , 344px 225px #FFF , 164px 907px #FFF , 1054px 1344px #FFF , 1826px 480px #FFF , 70px 1326px #FFF , 1395px 896px #FFF , 1693px 264px #FFF , 1406px 1928px #FFF , 1585px 1686px #FFF , 843px 1042px #FFF , 103px 1875px #FFF , 50px 850px #FFF , 1641px 1896px #FFF , 1863px 610px #FFF , 872px 561px #FFF , 395px 34px #FFF , 1576px 1880px #FFF , 1546px 1709px #FFF , 264px 1818px #FFF , 1595px 1181px #FFF , 1025px 51px #FFF , 161px 571px #FFF , 131px 1717px #FFF , 1373px 1436px #FFF , 993px 640px #FFF , 1660px 1271px #FFF , 248px 1563px #FFF , 1888px 766px #FFF , 359px 1561px #FFF , 1497px 21px #FFF , 409px 1152px #FFF , 608px 1494px #FFF , 1621px 1700px #FFF , 556px 1783px #FFF , 1381px 146px #FFF , 1464px 1018px #FFF , 1950px 224px #FFF , 1647px 1437px #FFF , 872px 766px #FFF , 737px 359px #FFF , 1712px 1517px #FFF , 939px 286px #FFF , 1632px 632px #FFF , 771px 1798px #FFF , 1033px 476px #FFF , 350px 1641px #FFF , 1024px 339px #FFF , 1471px 524px #FFF , 1479px 239px #FFF , 760px 658px #FFF , 1542px 531px #FFF , 1321px 1902px #FFF , 1435px 800px #FFF , 877px 1260px #FFF , 787px 81px #FFF , 396px 1315px #FFF , 1827px 1435px #FFF , 1760px 883px #FFF , 480px 1842px #FFF , 343px 89px #FFF , 1878px 1921px #FFF , 1747px 1030px #FFF , 1115px 1016px #FFF , 1526px 766px #FFF , 1331px 1736px #FFF , 1819px 114px #FFF , 577px 352px #FFF , 1702px 1511px #FFF , 1314px 1908px #FFF , 1594px 1654px #FFF , 1603px 1916px #FFF , 1746px 1685px #FFF , 38px 16px #FFF , 1027px 765px #FFF , 280px 1320px #FFF , 515px 758px #FFF , 1022px 155px #FFF , 200px 735px #FFF , 44px 950px #FFF , 1235px 837px #FFF , 1385px 1122px #FFF , 471px 1708px #FFF , 784px 1825px #FFF , 948px 1171px #FFF , 823px 1268px #FFF , 583px 1054px #FFF , 1879px 137px #FFF , 697px 1589px #FFF , 1393px 537px #FFF , 615px 838px #FFF , 1882px 1575px #FFF , 1821px 409px #FFF , 1646px 90px #FFF , 329px 1128px #FFF , 1477px 1936px #FFF , 970px 1468px #FFF , 264px 456px #FFF , 381px 1213px #FFF , 477px 1152px #FFF , 1714px 1906px #FFF , 1137px 797px #FFF , 1432px 353px #FFF , 1286px 105px #FFF , 1999px 1706px #FFF , 1581px 1436px #FFF , 449px 1761px #FFF , 664px 1449px #FFF , 1226px 173px #FFF , 676px 1982px #FFF , 1944px 1175px #FFF , 1583px 1186px #FFF , 99px 1603px #FFF , 803px 1386px #FFF , 334px 923px #FFF , 473px 247px #FFF , 600px 52px #FFF , 234px 132px #FFF , 1281px 51px #FFF , 1896px 1211px #FFF , 184px 1916px #FFF , 523px 1327px #FFF , 1095px 1787px #FFF , 1208px 224px #FFF , 916px 1932px #FFF , 838px 1371px #FFF , 834px 1212px #FFF , 885px 938px #FFF , 797px 1762px #FFF , 170px 804px #FFF , 1078px 508px #FFF , 399px 318px #FFF , 211px 65px #FFF , 681px 116px #FFF , 1425px 1877px #FFF , 433px 1017px #FFF , 651px 466px #FFF , 1286px 1039px #FFF;
-  animation: animStar 100s linear infinite; }
-  #stars2:after {
-    content: " ";
-    position: absolute;
-    top: 2000px;
-    width: 2px;
-    height: 2px;
-    background: transparent;
-    box-shadow: 138px 752px #FFF , 603px 531px #FFF , 513px 702px #FFF , 1283px 802px #FFF , 1475px 832px #FFF , 1500px 1256px #FFF , 920px 1477px #FFF , 1832px 1911px #FFF , 1247px 1169px #FFF , 993px 1230px #FFF , 201px 989px #FFF , 620px 290px #FFF , 79px 891px #FFF , 1765px 1984px #FFF , 1729px 1846px #FFF , 33px 361px #FFF , 1923px 448px #FFF , 659px 1474px #FFF , 1867px 361px #FFF , 1378px 605px #FFF , 1942px 175px #FFF , 654px 148px #FFF , 1061px 1288px #FFF , 181px 763px #FFF , 1290px 251px #FFF , 103px 581px #FFF , 303px 1761px #FFF , 841px 126px #FFF , 195px 1191px #FFF , 1076px 1529px #FFF , 1260px 1118px #FFF , 1882px 1192px #FFF , 486px 975px #FFF , 1673px 498px #FFF , 1151px 1418px #FFF , 1448px 249px #FFF , 1928px 687px #FFF , 1437px 1554px #FFF , 1876px 1338px #FFF , 913px 1804px #FFF , 684px 657px #FFF , 685px 687px #FFF , 503px 309px #FFF , 887px 1198px #FFF , 687px 556px #FFF , 1077px 779px #FFF , 1526px 1474px #FFF , 315px 343px #FFF , 1927px 438px #FFF , 1044px 1184px #FFF , 90px 1270px #FFF , 660px 1405px #FFF , 1655px 1173px #FFF , 244px 106px #FFF , 1738px 501px #FFF , 1915px 404px #FFF , 1808px 1344px #FFF , 11px 1765px #FFF , 1851px 1743px #FFF , 1418px 83px #FFF , 1880px 912px #FFF , 882px 901px #FFF , 1886px 1726px #FFF , 344px 225px #FFF , 164px 907px #FFF , 1054px 1344px #FFF , 1826px 480px #FFF , 70px 1326px #FFF , 1395px 896px #FFF , 1693px 264px #FFF , 1406px 1928px #FFF , 1585px 1686px #FFF , 843px 1042px #FFF , 103px 1875px #FFF , 50px 850px #FFF , 1641px 1896px #FFF , 1863px 610px #FFF , 872px 561px #FFF , 395px 34px #FFF , 1576px 1880px #FFF , 1546px 1709px #FFF , 264px 1818px #FFF , 1595px 1181px #FFF , 1025px 51px #FFF , 161px 571px #FFF , 131px 1717px #FFF , 1373px 1436px #FFF , 993px 640px #FFF , 1660px 1271px #FFF , 248px 1563px #FFF , 1888px 766px #FFF , 359px 1561px #FFF , 1497px 21px #FFF , 409px 1152px #FFF , 608px 1494px #FFF , 1621px 1700px #FFF , 556px 1783px #FFF , 1381px 146px #FFF , 1464px 1018px #FFF , 1950px 224px #FFF , 1647px 1437px #FFF , 872px 766px #FFF , 737px 359px #FFF , 1712px 1517px #FFF , 939px 286px #FFF , 1632px 632px #FFF , 771px 1798px #FFF , 1033px 476px #FFF , 350px 1641px #FFF , 1024px 339px #FFF , 1471px 524px #FFF , 1479px 239px #FFF , 760px 658px #FFF , 1542px 531px #FFF , 1321px 1902px #FFF , 1435px 800px #FFF , 877px 1260px #FFF , 787px 81px #FFF , 396px 1315px #FFF , 1827px 1435px #FFF , 1760px 883px #FFF , 480px 1842px #FFF , 343px 89px #FFF , 1878px 1921px #FFF , 1747px 1030px #FFF , 1115px 1016px #FFF , 1526px 766px #FFF , 1331px 1736px #FFF , 1819px 114px #FFF , 577px 352px #FFF , 1702px 1511px #FFF , 1314px 1908px #FFF , 1594px 1654px #FFF , 1603px 1916px #FFF , 1746px 1685px #FFF , 38px 16px #FFF , 1027px 765px #FFF , 280px 1320px #FFF , 515px 758px #FFF , 1022px 155px #FFF , 200px 735px #FFF , 44px 950px #FFF , 1235px 837px #FFF , 1385px 1122px #FFF , 471px 1708px #FFF , 784px 1825px #FFF , 948px 1171px #FFF , 823px 1268px #FFF , 583px 1054px #FFF , 1879px 137px #FFF , 697px 1589px #FFF , 1393px 537px #FFF , 615px 838px #FFF , 1882px 1575px #FFF , 1821px 409px #FFF , 1646px 90px #FFF , 329px 1128px #FFF , 1477px 1936px #FFF , 970px 1468px #FFF , 264px 456px #FFF , 381px 1213px #FFF , 477px 1152px #FFF , 1714px 1906px #FFF , 1137px 797px #FFF , 1432px 353px #FFF , 1286px 105px #FFF , 1999px 1706px #FFF , 1581px 1436px #FFF , 449px 1761px #FFF , 664px 1449px #FFF , 1226px 173px #FFF , 676px 1982px #FFF , 1944px 1175px #FFF , 1583px 1186px #FFF , 99px 1603px #FFF , 803px 1386px #FFF , 334px 923px #FFF , 473px 247px #FFF , 600px 52px #FFF , 234px 132px #FFF , 1281px 51px #FFF , 1896px 1211px #FFF , 184px 1916px #FFF , 523px 1327px #FFF , 1095px 1787px #FFF , 1208px 224px #FFF , 916px 1932px #FFF , 838px 1371px #FFF , 834px 1212px #FFF , 885px 938px #FFF , 797px 1762px #FFF , 170px 804px #FFF , 1078px 508px #FFF , 399px 318px #FFF , 211px 65px #FFF , 681px 116px #FFF , 1425px 1877px #FFF , 433px 1017px #FFF , 651px 466px #FFF , 1286px 1039px #FFF; }
+    .tech-card {
+        background: var(--white);
+        padding: 40px 30px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-soft);
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border: 1px solid rgba(33, 150, 243, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
 
-#stars3 {
-  width: 3px;
-  height: 3px;
-  background: transparent;
-  box-shadow: 353px 1643px #FFF , 1780px 161px #FFF , 699px 1781px #FFF , 54px 276px #FFF , 277px 1198px #FFF , 196px 1487px #FFF , 1785px 236px #FFF , 152px 1889px #FFF , 1953px 896px #FFF , 1786px 1252px #FFF , 967px 100px #FFF , 1582px 635px #FFF , 1147px 1729px #FFF , 1207px 876px #FFF , 291px 1939px #FFF , 1673px 252px #FFF , 282px 447px #FFF , 1383px 462px #FFF , 223px 699px #FFF , 676px 1505px #FFF , 1606px 451px #FFF , 1818px 222px #FFF , 1298px 1981px #FFF , 664px 1329px #FFF , 1532px 624px #FFF , 1294px 1607px #FFF , 51px 1042px #FFF , 1061px 96px #FFF , 1640px 606px #FFF , 779px 1161px #FFF , 164px 689px #FFF , 1812px 1089px #FFF , 929px 1384px #FFF , 1488px 1089px #FFF , 788px 298px #FFF , 724px 858px #FFF , 1719px 1156px #FFF , 259px 1581px #FFF , 407px 540px #FFF , 380px 922px #FFF , 45px 1716px #FFF , 903px 1499px #FFF , 102px 855px #FFF , 1390px 1752px #FFF , 1183px 1733px #FFF , 1163px 683px #FFF , 1379px 73px #FFF , 1928px 1665px #FFF , 1148px 1023px #FFF , 372px 1279px #FFF , 1637px 1882px #FFF , 1427px 1261px #FFF , 1088px 374px #FFF , 156px 766px #FFF , 1504px 1454px #FFF , 139px 1845px #FFF , 1101px 151px #FFF , 1331px 1860px #FFF , 325px 1948px #FFF , 681px 219px #FFF , 1596px 518px #FFF , 1423px 410px #FFF , 1969px 660px #FFF , 66px 1856px #FFF , 1597px 1898px #FFF , 1950px 409px #FFF , 673px 1824px #FFF , 106px 714px #FFF , 610px 583px #FFF , 1445px 816px #FFF , 671px 1835px #FFF , 1181px 1769px #FFF , 1354px 1027px #FFF , 713px 465px #FFF , 976px 1001px #FFF , 608px 486px #FFF , 121px 145px #FFF , 1286px 1234px #FFF , 267px 1724px #FFF , 1796px 1228px #FFF , 1597px 847px #FFF , 1177px 1900px #FFF , 611px 19px #FFF , 1581px 697px #FFF , 1796px 1234px #FFF , 1669px 1845px #FFF , 55px 1993px #FFF , 1286px 294px #FFF , 669px 726px #FFF , 1771px 58px #FFF , 1634px 1162px #FFF , 1656px 76px #FFF , 1932px 396px #FFF , 1333px 1794px #FFF , 115px 658px #FFF , 1874px 1905px #FFF , 322px 1493px #FFF , 1716px 1111px #FFF , 1676px 1709px #FFF , 1788px 926px #FFF;
-  animation: animStar 150s linear infinite; }
-  #stars3:after {
-    content: " ";
-    position: absolute;
-    top: 2000px;
-    width: 3px;
-    height: 3px;
-    background: transparent;
-    box-shadow: 353px 1643px #FFF , 1780px 161px #FFF , 699px 1781px #FFF , 54px 276px #FFF , 277px 1198px #FFF , 196px 1487px #FFF , 1785px 236px #FFF , 152px 1889px #FFF , 1953px 896px #FFF , 1786px 1252px #FFF , 967px 100px #FFF , 1582px 635px #FFF , 1147px 1729px #FFF , 1207px 876px #FFF , 291px 1939px #FFF , 1673px 252px #FFF , 282px 447px #FFF , 1383px 462px #FFF , 223px 699px #FFF , 676px 1505px #FFF , 1606px 451px #FFF , 1818px 222px #FFF , 1298px 1981px #FFF , 664px 1329px #FFF , 1532px 624px #FFF , 1294px 1607px #FFF , 51px 1042px #FFF , 1061px 96px #FFF , 1640px 606px #FFF , 779px 1161px #FFF , 164px 689px #FFF , 1812px 1089px #FFF , 929px 1384px #FFF , 1488px 1089px #FFF , 788px 298px #FFF , 724px 858px #FFF , 1719px 1156px #FFF , 259px 1581px #FFF , 407px 540px #FFF , 380px 922px #FFF , 45px 1716px #FFF , 903px 1499px #FFF , 102px 855px #FFF , 1390px 1752px #FFF , 1183px 1733px #FFF , 1163px 683px #FFF , 1379px 73px #FFF , 1928px 1665px #FFF , 1148px 1023px #FFF , 372px 1279px #FFF , 1637px 1882px #FFF , 1427px 1261px #FFF , 1088px 374px #FFF , 156px 766px #FFF , 1504px 1454px #FFF , 139px 1845px #FFF , 1101px 151px #FFF , 1331px 1860px #FFF , 325px 1948px #FFF , 681px 219px #FFF , 1596px 518px #FFF , 1423px 410px #FFF , 1969px 660px #FFF , 66px 1856px #FFF , 1597px 1898px #FFF , 1950px 409px #FFF , 673px 1824px #FFF , 106px 714px #FFF , 610px 583px #FFF , 1445px 816px #FFF , 671px 1835px #FFF , 1181px 1769px #FFF , 1354px 1027px #FFF , 713px 465px #FFF , 976px 1001px #FFF , 608px 486px #FFF , 121px 145px #FFF , 1286px 1234px #FFF , 267px 1724px #FFF , 1796px 1228px #FFF , 1597px 847px #FFF , 1177px 1900px #FFF , 611px 19px #FFF , 1581px 697px #FFF , 1796px 1234px #FFF , 1669px 1845px #FFF , 55px 1993px #FFF , 1286px 294px #FFF , 669px 726px #FFF , 1771px 58px #FFF , 1634px 1162px #FFF , 1656px 76px #FFF , 1932px 396px #FFF , 1333px 1794px #FFF , 115px 658px #FFF , 1874px 1905px #FFF , 322px 1493px #FFF , 1716px 1111px #FFF , 1676px 1709px #FFF , 1788px 926px #FFF; }
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            transition: left 0.5s ease;
+            opacity: 0.05;
+        }
 
+        .tech-card:hover::before {
+            left: 0;
+        }
 
-@@keyframes animStar {
-  from {
-    transform: translateY(0px); }
-  to {
-    transform: translateY(-2000px); } }
+        .tech-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-large);
+            border-color: var(--primary-blue);
+        }
 
-    /* seccion contacto */
+    .tech-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--gradient-1);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 30px;
+        font-size: 32px;
+        color: white;
+        position: relative;
+        z-index: 1;
+    }
+
+    .tech-card h3 {
+        color: var(--text-dark);
+        margin-bottom: 20px;
+        font-size: 1.4rem;
+        font-weight: 600;
+        position: relative;
+        z-index: 1;
+    }
+
+    .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .tech-tag {
+        background: var(--light-blue);
+        color: var(--primary-blue);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        border: 1px solid rgba(33, 150, 243, 0.2);
+        transition: all 0.3s ease;
+    }
+
+        .tech-tag:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    /* Projects Sections */
+    .projects-section {
+        background: var(--white);
+    }
+
+        .projects-section:nth-child(odd) {
+            background: var(--gray-light);
+        }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 40px;
+    }
+
+    .project-card {
+        background: var(--white);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-soft);
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        position: relative;
+        border: 1px solid rgba(33, 150, 243, 0.1);
+    }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-large);
+        }
+
+    .project-header {
+        background: var(--gradient-1);
+        color: white;
+        padding: 40px 30px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .project-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 8s linear infinite;
+        }
+
+    .project-icon {
+        font-size: 60px;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .project-header h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        position: relative;
+        z-index: 1;
+    }
+
+    .project-content {
+        padding: 35px 30px;
+    }
+
+        .project-content p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+    .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .project-tech-tag {
+        background: var(--gray-light);
+        color: var(--text-dark);
+        padding: 6px 14px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        border: 1px solid var(--primary-blue);
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .project-tech-tag:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .project-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: var(--primary-blue);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+
+        .project-link:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .project-link.disabled {
+            background: var(--text-light);
+            color: white;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+            .project-link.disabled:hover {
+                background: var(--text-light);
+                transform: none;
+                box-shadow: none;
+            }
+
+    /* Contact */
+    .contact-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 40px;
+        text-align: center;
+    }
+
+    .contact-item {
+        background: var(--white);
+        padding: 50px 30px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-soft);
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border: 1px solid rgba(33, 150, 243, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-3);
+            transition: left 0.5s ease;
+            opacity: 0.05;
+        }
+
+        .contact-item:hover::before {
+            left: 0;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-large);
+        }
+
+    .contact-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--gradient-3);
+        color: white;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        font-size: 28px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .contact-item h3 {
+        margin-bottom: 15px;
+        color: var(--text-dark);
+        font-weight: 600;
+        font-size: 1.3rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .contact-item p {
+        color: var(--text-light);
+        font-size: 1.1rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Footer */
+    .footer {
+        background: var(--text-dark);
+        color: white;
+        text-align: center;
+        padding: 60px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-1);
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+    /* Scroll animations */
+    .fade-in-up {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .nav {
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            transform: none;
+            width: calc(100% - 40px);
+        }
+
+        .nav-list {
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tech-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .projects-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .contact-info {
+            grid-template-columns: 1fr;
+        }
+
+        .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .container {
+            padding: 0 15px;
+        }
+
+        .tech-card, .project-content, .contact-item {
+            padding: 30px 20px;
+        }
+    }
 </style>
 <PageTitle>Cv Juan Manuel Ramirez</PageTitle>
 
-<!-- #region sobre mi -->
-<MudGrid>
-    <MudItem xs="12" Style="padding-top:0;">
-        <MudPaper Elevation="0" Class="d-flex flex-column align-center justify-center mud-width-full py-8 text-center" Style="background-color:#f1f5f9;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.h3" Class="texto-izquierda-h-3-seccion-inicio">Sobre mí</MudText>
-                    </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
-                            Como desarrollador de software con experiencia laboral de 2 años, mi trayectoria abarca aproximadamente 3 años en el desarrollo web y de escritorio.
-                            Siempre busco nuevos desafíos y conocimientos para mantenerme a la vanguardia en esta industria.
-                        </MudText>
-                        <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio">
-                            Impulsado por la curiosidad, disfruto explorando y dominando tecnologías emergentes.
-                            Mi dedicación a ofrecer soluciones innovadoras alimenta mi pasión por crear software.
-                            Siempre busco nuevos desafíos y conocimientos para mantenerme a la vanguardia en esta industria.
-                        </MudText>
-                        <MudButton Variant="Variant.Outlined" Color="Color.Info" EndIcon="@Icons.Material.Rounded.PictureAsPdf" IconColor="Color.Info" Href="JuanManuelRamirezHernandez.pdf" Target="_blank">Descargar Cv</MudButton>
-                    </div>
-                </div>
-                <div style="flex: 3.5; display: flex; justify-content: center;">
-                    <MudImage Src="images/img.jpg" Width="280" Height="280" Alt="Img" Elevation="25" Class="rounded-circle" />
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-</MudGrid>
-<!-- #endregion -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio - Desarrollador .NET</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animated"></div>
 
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
 
-<!-- #region Habilidades -->
-<MudGrid Justify="Justify.Center" id="Habilidades">
-    <MudItem xs="12" Style="display:flex; justify-content:center; align-items:center; padding-top:50px;">
-        <MudPaper Elevation="0" Class="mud-width-full" Style="padding-top: 1px !important;">
-            <MudText Typo="Typo.h3" Class="texto-izquierda-h-3-seccion-inicio">Habilidades</MudText>
-        </MudPaper>
-    </MudItem>
-    <!-- #region 1 -->
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/c-sharp.png"  />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                    <MudText Typo="Typo.subtitle2"  Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                        C#
-                    </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/html-5.png" Style="justify-content:center;" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            HTML
-                        </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/css-3.png" Style="justify-content:center;" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            CSS
-                        </MudText>
-                    </div>
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <ul class="nav-list">
+            <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+            <li><a href="#tecnologias" class="nav-link">Tecnologías</a></li>
+            <li><a href="#proyectos-empresariales" class="nav-link">Empresariales</a></li>
+            <li><a href="#proyectos-practicos" class="nav-link">Prácticos</a></li>
+            <li><a href="#contacto" class="nav-link">Contacto</a></li>
+        </ul>
+    </nav>
 
-                </div>
+    <!-- Header -->
+    <header id="inicio" class="header">
+        <div class="header-content">
+            <div class="profile-container">
+                <div class="profile-img">👨‍💻</div>
             </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/java-script.png" Style="justify-content:center;" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                    <MudText Typo="Typo.subtitle2"  Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                        JAVASCRIPT
-                    </MudText>
-                    </div>
-                </div>
+            <h1>Desarrollador .NET</h1>
+            <p class="header-subtitle">Soy desarrollador de software enfocado en crear soluciones innovadoras y eficientes tanto en entornos web como de escritorio. 
+                                       Me impulsa la curiosidad y el deseo constante de aprender, lo que me lleva a explorar y dominar nuevas tecnologías para mantenerme siempre a la vanguardia. 
+                                       Disfruto enfrentar desafíos que me permitan crecer profesionalmente y aportar valor mediante software que marque la diferencia.</p>
+            <div class="cta-buttons">
+                <a href="#proyectos-empresariales" class="btn btn-primary">
+                    <i class="fas fa-code"></i>
+                    Ver Proyectos
+                </a>
+                <a href="#" class="btn btn-secondary" onclick="downloadCV()">
+                    <i class="fas fa-download"></i>
+                    Descargar CV
+                </a>
             </div>
-        </MudPaper>
-    </MudItem>
-    <!-- #endregion -->
-    <!-- #region 2 -->
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudIcon Icon="@Icons.Custom.Brands.MudBlazor" Style="width:32px; height:32px; color:black;" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            MUDBLAZOR
-                        </MudText>
-                    </div>
-                </div>
+        </div>
+    </header>
+
+    <!-- Technologies Section -->
+    <section id="tecnologias" class="section">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>Tecnologías</h2>
+                <p>Dominio completo del ecosistema Microsoft y tecnologías web modernas para crear soluciones robustas y escalables</p>
             </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/bootstrap.png" Style="justify-content:center;" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            BOOTSTRAP
-                        </MudText>
+            <div class="tech-grid">
+                <div class="tech-card fade-in-up">
+                    <div class="tech-icon">🏗️</div>
+                    <h3>Backend & Frameworks</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">C#</span>
+                        <span class="tech-tag">.NET Core</span>
+                        <span class="tech-tag">.NET 5-8</span>
+                        <span class="tech-tag">ASP.NET</span>
                     </div>
                 </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/code.png" Style="justify-content:center;" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            WINDOWS FORMS 
-                        </MudText>
+                <div class="tech-card fade-in-up">
+                    <div class="tech-icon">🌐</div>
+                    <h3>Frontend & UI</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">MudBlazor</span>
                     </div>
                 </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/net.png" Style="justify-content:center;" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            .NET 5.0-6.0-7.0
-                        </MudText>
+                <div class="tech-card fade-in-up">
+                    <div class="tech-icon">⚡</div>
+                    <h3>Blazor</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Blazor Server</span>
+                        <span class="tech-tag">Blazor WebAssembly</span>
                     </div>
                 </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <!-- #endregion -->
-    <!-- #region 3 -->
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/asp.png" />
+                <div class="tech-card fade-in-up">
+                    <div class="tech-icon">🖥️</div>
+                    <h3>Desktop</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Windows Forms</span>
                     </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            ASP .NET
-                        </MudText>
+                </div>
+                <div class="tech-card fade-in-up">
+                    <div class="tech-icon">🗄️</div>
+                    <h3>Base de Datos</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">SQL Server</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Entity Framework</span>
+                        <span class="tech-tag">ADO.NET</span>
+                    </div>
+                </div>
+                <div class="tech-card fade-in-up">
+                    <div class="tech-icon">☁️</div>
+                    <h3>Cloud</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Azure</span>
                     </div>
                 </div>
             </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/favicon.png" Style="color:black; width:32px; height:32px;" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            BLAZOR WEB ASSEMBLY Y SERVER
-                        </MudText>
-                    </div>
-                </div>
+        </div>
+    </section>
+
+    <!-- Proyectos Empresariales Section -->
+    <section id="proyectos-empresariales" class="section projects-section">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>Proyectos Empresariales</h2>
+                <p>Soluciones robustas y escalables diseñadas para empresas, con arquitecturas complejas y alto rendimiento</p>
             </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/server-storage.png" />
+            <div class="projects-grid">
+                <div class="project-card fade-in-up">
+                    <div class="project-header">
+                        <div class="project-icon">🏢</div>
+                        <h3>Taxco Finances</h3>
                     </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            ENTITY FRAMEWORK
-                        </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/server-storage.png" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            ADO.NET
-                        </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <!-- #endregion -->
-    <!-- #region 4 -->
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/sql-server.png"  />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            SQL SERVER
-                        </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/mysql.png" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            MYSQL
-                        </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/database.png" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            POSTGRESQL
-                        </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;">
-        <MudPaper Elevation="2" Class="mud-width-full py-4" Style="background-color: #e2e8f0;">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/azure.png" Style="justify-content:center;" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            AZURE
-                        </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <!-- #endregion -->
-</MudGrid>
-<!-- #endregion -->
-<!-- #region Proyectos -->
-<MudGrid Justify="Justify.Center" id="Proyectos">
-    <MudItem xs="12" Style="display:flex; justify-content:center; align-items:center; padding-top:50px;">
-        <MudPaper Elevation="0" Class="mud-width-full py-4" Style="padding-top: 1px !important;">
-            <MudText Typo="Typo.h3" Class="texto-izquierda-h-3-seccion-inicio">Proyectos</MudText>
-        </MudPaper>
-    </MudItem>
-    <!-- #region Proyectos Empresariales -->
-    <MudItem xs="12" >
-        <MudPaper Elevation="0" Class="mud-width-full py-4" Style="padding-top: 1px !important; display: flex; justify-content: center; align-items: center; color:black;">
-            <MudText Typo="Typo.h3">Empresariales</MudText>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
-                            Taxco Finances
-                        </MudText>
-                    </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
-                            Desarrollo de sistema web de pago de nóminas "Payroll"
-                        </MudText>
-                    </div>
-                    <br />
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Descripcion:
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Implementé un sistema web de pago de nóminas para gestionar el procesamiento de nóminas de los trabajadores de las empresas registradas en el sistema de Taxco Finances.
-                            El sistema permite a las empresas administrar de manera eficiente sus procesos de pago, asegurando precisión y cumplimiento normativo.
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Tecnologías Utilizadas
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Blazor Web Assembly .NET 7.0 - EntityFramework - MudBlazor - Bootstrap - C# - HTML - CSS - JavaScript - SQL Server
-                        </MudText>
-                        <div style ="display: flex;justify-content: flex-end; margin-right:20px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://taxcopay.com/" Target="_blank">Ver</MudButton>
+                    <div class="project-content">
+                        <p>sistema web de pago de nóminas para gestionar el procesamiento de nóminas de los trabajadores de las empresas registradas en el sistema de Taxco Finances. 
+                            El sistema permite a las empresas administrar de manera eficiente sus procesos de pago, asegurando precisión y cumplimiento normativo.</p>
+                        <div class="project-tech">
+                            <span class="project-tech-tag">Blazor Web Assembly</span>
+                            <span class="project-tech-tag">C#</span>
+                            <span class="project-tech-tag">Html</span>
+                            <span class="project-tech-tag">Css</span>
+                            <span class="project-tech-tag">JavaScript</span>
+                            <span class="project-tech-tag">Bootstrap</span>
+                            <span class="project-tech-tag">.NET 7.0 - 8.0</span>
+                            <span class="project-tech-tag">EntityFramework</span>
+                            <span class="project-tech-tag">MudBlazor</span>
+                            <span class="project-tech-tag">SyncFusion</span>
+                            <span class="project-tech-tag">SQL Server</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="#" class="project-link disabled">
+                                <i class="fab fa-github"></i>
+                                Privado
+                            </a>
+                            <a href="https://taxcopay.com/" class="project-link" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i>
+                                Ver Web
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
-                            Autopartes Agricolas
-                        </MudText>
+        </div>
+    </section>
+
+    <!-- Proyectos Prácticos Section -->
+    <section id="proyectos-practicos" class="section projects-section">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>Proyectos Prácticos</h2>
+                <p>Desarrollos enfocados en demostrar habilidades técnicas y explorar nuevas tecnologías</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card fade-in-up">
+                    <div class="project-header">
+                        <div class="project-icon">📝</div>
+                        <h3>Virtualizacion De Componentes - Formularios</h3>
                     </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
-                            Desarrollo de pagina web
-                        </MudText>
-                    </div>
-                    <br />
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Descripcion:
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Desarrollé una página web para la empresa Autopartes Agrícolas con el objetivo de promocionar y vender productos como cardanes, cuchillas, elementos de seguridad y una sección de ofertas.
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Tecnologías Utilizadas
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Blazor Web Assembly .NET 7.0 - EntityFramework - MudBlazor - Bootstrap - C# - HTML - CSS - JavaScript - SQL Server
-                        </MudText>
-                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://autopartesagricolas.com/" Target="_blank">Ver</MudButton>
+                    <div class="project-content">
+                        <p>Este proyecto tiene como objetivo digitalizar diversos formularios que tradicionalmente se llenaban a mano, 
+                            transformándolos en formularios web interactivos y accesibles. Esto facilita la recolección y gestión de datos, 
+                            mejorando la eficiencia y reduciendo errores manuales.</p>
+                        <div class="project-tech">
+                            <span class="project-tech-tag">Blazor WASM</span>
+                            <span class="project-tech-tag">MudBlazor</span>
+                            <span class="project-tech-tag">C#</span>
+                            <span class="project-tech-tag">Html</span>
+                            <span class="project-tech-tag">Css</span>
+                            <span class="project-tech-tag">JavaScript</span>
+                            <span class="project-tech-tag">SQL Server</span>
+                            <span class="project-tech-tag">.NET 5.0 - 6.0</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/JuanManuel753/ProyectoEmcartago" class="project-link" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                                Ver Código
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
-                            Fundacion I'm For You
-                        </MudText>
+
+                <div class="project-card fade-in-up">
+                    <div class="project-header">
+                        <div class="project-icon">💻</div>
+                        <h3>Proyecto de Entrada y Salida (Escritorio)</h3>
                     </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
-                            Desarrollo de pagina web
-                        </MudText>
-                    </div>
-                    <br />
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Descripcion:
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Desarrollo de una página web para la Fundación Imfor You, una entidad sin ánimo de lucro dedicada a la formación integral del ser humano, 
-                            especialmente en sectores con escasos recursos. El proyecto tiene como objetivo crear un sistema de generación de ingresos autosostenible 
-                            que permita mitigar la carencia de apoyo económico para jóvenes, invirtiendo en su desarrollo emocional, físico y mental
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Tecnologías Utilizadas
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            ASPMVC.NET 7.0 - Procedimientos Almacenados - Bootstrap - C# - HTML - CSS - JavaScript - SQL Server
-                        </MudText>
-                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://fundacionimforyou.com/" Target="_blank">Ver</MudButton>
+                    <div class="project-content">
+                        <p>Este proyecto automatiza el proceso de entrada y salida de implementos utilizando tecnología de código de barras, 
+                            mejorando la eficiencia y la precisión en la gestión de inventarios y el ingreso de personas.</p>
+                        <div class="project-tech">
+                            <span class="project-tech-tag">Windows Forms</span>
+                            <span class="project-tech-tag">.NetCore</span>
+                            <span class="project-tech-tag">Bunifu UI</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/JuanManuel753/Proyecto-Entrada-y-Salida" class="project-link" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                                Ver Código
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <!-- #endregion -->
-    <!-- #region Proyectos Practicos -->
-    <MudItem xs="12" Style="padding: 12px 0;">
-        <MudPaper Elevation="0" Class="mud-width-full py-4" Style="padding-top: 1px !important; display: flex; justify-content: center; align-items: center; color:black;">
-            <MudText Typo="Typo.h3">Practicos</MudText>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
-                            Proyecto Practias
-                        </MudText>
+
+                <div class="project-card fade-in-up">
+                    <div class="project-header">
+                        <div class="project-icon">🎥</div>
+                        <h3>Proyecto de Carteleras de Cine</h3>
                     </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
-                            Desarrollo de virtualizacion de componentes/formularios 
-                        </MudText>
-                    </div>
-                    <br />
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Descripcion:
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Este proyecto tiene como objetivo digitalizar diversos formularios que tradicionalmente se llenaban a mano, transformándolos en formularios web interactivos y accesibles. 
-                            Esto facilita la recolección y gestión de datos, mejorando la eficiencia y reduciendo errores manuales.
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Tecnologías Utilizadas
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Blazor Web Assembly .NET 5.0-6.0 - EntityFramework - MudBlazor - Bootstrap - C# - HTML - CSS - JavaScript - SQL Server
-                        </MudText>
-                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://github.com/JuanManuel753/ProyectoEmcartago" Target="_blank">Ver</MudButton>
+                    <div class="project-content">
+                        <p>Este proyecto, completado como parte de un curso en Udemy, consiste en desarrollar una aplicación web para mostrar las carteleras de cine, 
+                            incluyendo detalles de películas, votos a las peliculas, Muestra de actores y sus personajes.</p>
+                        <div class="project-tech">
+                            <span class="project-tech-tag">Blazor Web Assembly</span>
+                            <span class="project-tech-tag">MudBlazor</span>
+                            <span class="project-tech-tag">C#</span>
+                            <span class="project-tech-tag">Html</span>
+                            <span class="project-tech-tag">JavaScript</span>
+                            <span class="project-tech-tag">Css</span>
+                            <span class="project-tech-tag">EntityFramework</span>
+                            <span class="project-tech-tag">.NET 5.0 - 6.0 - 7.0</span>
+                            <span class="project-tech-tag">EntityFramework</span>
+                            <span class="project-tech-tag">SQL Server</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/JuanManuel753/BlazorPeliculasNet5IdentityServer4" class="project-link" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                                Ver Código
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
-                            Proyecto de Entrada y Salida (Escritorio)
-                        </MudText>
+
+                <div class="project-card fade-in-up">
+                    <div class="project-header">
+                        <div class="project-icon">🎮</div>
+                        <h3>Juego de Saltos (Estilo Dino de Google Chrome)</h3>
                     </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
-                            Proyecto de Entrada y Salida de Implementos con Código de Barras
-                        </MudText>
-                    </div>
-                    <br />
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Descripcion:
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Este proyecto automatiza el proceso de entrada y salida de implementos utilizando tecnología de código de barras, mejorando la eficiencia y la precisión en la gestión de inventarios y el ingreso de personas.
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Tecnologías Utilizadas
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Windows Forms, .NetCore, Bunifu UI
-                        </MudText>
-                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://github.com/JuanManuel753/Proyecto-Entrada-y-Salida" Target="_blank">Ver</MudButton>
+                    <div class="project-content">
+                        <p>Este proyecto es un juego de saltos similar al famoso juego del dinosaurio de Google Chrome, donde el jugador debe evitar obstáculos saltando sobre ellos. 
+                            El juego incluirá un selector de personajes que permite al jugador elegir entre tres diferentes personajes.</p>
+                        <div class="project-tech">
+                            <span class="project-tech-tag">Html</span>
+                            <span class="project-tech-tag">Css</span>
+                            <span class="project-tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/tuusuario/blog-blazor" class="project-link" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                                Ver Código
+                            </a>
+                            <a href="https://juegodesaltosjuanmanuelramirez.netlify.app/index.html" class="project-link" target="_blank" rel="noopener">
+                                <i class="fas fa-gamepad"></i>
+                                Ver Juego
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
-                            Proyecto de Carteleras de Cine
-                        </MudText>
+
+                <div class="project-card fade-in-up">
+                    <div class="project-header">
+                        <div class="project-icon">⌚</div>
+                        <h3>Reloj Analogico - Digital</h3>
                     </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
-                            Proyecto de Carteleras de Cine Realizado en un Certificado de Udemy
-                        </MudText>
-                    </div>
-                    <br />
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Descripcion:
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Este proyecto, completado como parte de un curso en Udemy, consiste en desarrollar una aplicación web para mostrar las carteleras de cine, incluyendo detalles de películas, votos a las peliculas, Muestra de actores y sus personajes.
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Tecnologías Utilizadas
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Blazor Web Assembly .NET 5.0-6.0 - EntityFramework - MudBlazor - Bootstrap - C# - HTML - CSS - JavaScript - SQL Server
-                        </MudText>
-                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://github.com/JuanManuel753/BlazorPeliculasNet5IdentityServer4" Target="_blank">Ver</MudButton>
+                    <div class="project-content">
+                        <p>Este proyecto consiste en la creación de un reloj que muestra la hora tanto en formato analógico como digital. 
+                            La interfaz incluye un reloj con manecillas que representan las horas, minutos y segundos, así como una pantalla digital que muestra la hora en formato numérico</p>
+                        <div class="project-tech">
+                            <span class="project-tech-tag">Blazor</span>
+                            <span class="project-tech-tag">Hmtml</span>
+                            <span class="project-tech-tag">Css</span>
+                            <span class="project-tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/tuusuario/dev-tools" class="project-link" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                                Ver Código
+                            </a>
+                            <a href="https://relojanalogodigitaljuanmanuelramiez.netlify.app/" class="project-link" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i>
+                                Ver Reloj
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
-                            Juego de Saltos (Estilo Dino de Google Chrome)
-                        </MudText>
+
+                <div class="project-card fade-in-up">
+                    <div class="project-header">
+                        <div class="project-icon">🖩</div>
+                        <h3>Caculadora</h3>
                     </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
-                            Desarrollo en practicas
-                        </MudText>
-                    </div>
-                    <br />
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Descripcion:
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Este proyecto es un juego de saltos similar al famoso juego del dinosaurio de Google Chrome, donde el jugador debe evitar obstáculos saltando sobre ellos. 
-                            El juego incluirá un selector de personajes que permite al jugador elegir entre tres diferentes personajes.
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Tecnologías Utilizadas
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                           HTML5 - CSS - JavaScript
-                        </MudText>
-                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://juegodesaltosjuanmanuelramirez.netlify.app/index.html" Target="_blank">Ver</MudButton>
+                    <div class="project-content">
+                        <p>Este proyecto implica desarrollar una calculadora que no solo realiza operaciones aritméticas básicas (suma, resta, multiplicación y división)
+                            sino que también incluye la funcionalidad para calcular la raíz cuadrada de un número.</p>
+                        <div class="project-tech">
+                            <span class="project-tech-tag">Blazor</span>
+                            <span class="project-tech-tag">Hmtml</span>
+                            <span class="project-tech-tag">Css</span>
+                            <span class="project-tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/tuusuario/data-visualizer" class="project-link" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                                Ver Código
+                            </a>
+                            <a href="https://calculadorajuanmanuelramirez.netlify.app/" class="project-link" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i>
+                                Ver Calculadora
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
-                            Reloj Analogico - Digital
-                        </MudText>
+                <div class="project-card fade-in-up">
+                    <div class="project-header">
+                        <div class="project-icon">🎧</div>
+                        <h3>Reproductor de Música</h3>
                     </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
-                            Reloj en tiempo real
-                        </MudText>
-                    </div>
-                    <br />
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Descripcion:
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Este proyecto consiste en la creación de un reloj que muestra la hora tanto en formato analógico como digital. 
-                            La interfaz incluye un reloj con manecillas que representan las horas, minutos y segundos, así como una pantalla digital que muestra la hora en formato numérico
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Tecnologías Utilizadas
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                           Blazor - C# - HTML5 - CSS - JavaScript
-                        </MudText>
-                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://relojanalogodigitaljuanmanuelramiez.netlify.app/" Target="_blank">Ver</MudButton>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
-                            Caculadora
-                        </MudText>
-                    </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
-                            Caculadora
-                        </MudText>
-                    </div>
-                    <br />
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Descripcion:
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Este proyecto implica desarrollar una calculadora que no solo realiza operaciones aritméticas básicas (suma, resta, multiplicación y división)
-                            sino que también incluye la funcionalidad para calcular la raíz cuadrada de un número.
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Tecnologías Utilizadas
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Blazor - C# - HTML5 - CSS - JavaScript
-                        </MudText>
-                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://calculadorajuanmanuelramirez.netlify.app/" Target="_blank">Ver</MudButton>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4  h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div>
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px; margin-left:30px;">
-                            Reproductor de Música
-                        </MudText>
-                    </div>
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color: #64748b;">
-                            MP3
-                        </MudText>
-                    </div>
-                    <br />
-                    <div>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Descripcion:
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
+                    <div class="project-content">
+                        <p>
                             Este proyecto consiste en desarrollar un reproductor de música que permita a los usuarios reproducir, pausar y navegar entre pistas de audio. 
                             El reproductor ofrecerá una interfaz amigable con controles básicos y una lista de reproducción.
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; margin-left: 30px; color:black;">
-                            Tecnologías Utilizadas
-                        </MudText>
-                        <MudText Typo="Typo.body2" Style="font-family: 'Geologica', Akzidenz-Grotesk BQ; text-align: justify; color:#64748b; margin-left: 30px; margin-right: 20px;">
-                            Blazor - C# - HTML5 - CSS - JavaScript
-                        </MudText>
-                        <div style="display: flex;justify-content: flex-end; margin-right:20px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Info" Href="https://musicplayerjuanmanuelramirez.netlify.app/" Target="_blank">Ver</MudButton>
+                        </p>
+                        <div class="project-tech">
+                            <span class="project-tech-tag">Blazor</span>
+                            <span class="project-tech-tag">Hmtml</span>
+                            <span class="project-tech-tag">Css</span>
+                            <span class="project-tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://musicplayerjuanmanuelramirez.netlify.app/" class="project-link" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i>
+                                Ver Código
+                            </a>
+                            <a href="https://musicplayerjuanmanuelramirez.netlify.app/" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                                Ver Reproductor
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </MudPaper>
-    </MudItem>
-    <!-- #endregion -->
-</MudGrid>
-<!-- #endregion -->
-<!-- #region Servicios -->
-<MudGrid Justify="Justify.Center" id="Servicios">
-    <MudItem xs="12" Style="display:flex; justify-content:center; align-items:center; padding-top:50px;">
-        <MudPaper Elevation="0" Class="mud-width-full" Style="padding-top: 1px !important;">
-            <MudText Typo="Typo.h3" Class="texto-izquierda-h-3-seccion-inicio" Style="text-align: center !important; margin-left:0 !important;">Nuestros servicios</MudText>
-            <MudText Typo="Typo.body1" Class="texto-izquierda-h-3-seccion-inicio" Style="text-align: center !important; margin-left:0 !important; color:#64748b;">
-                Ofrecemos una amplia gama de servicios profesionales para ayudarle a alcanzar sus objetivos. Desde desarrollo web hasta soluciones de bases de datos, tenemos todo lo que necesita.
-                </MudText>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4 h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/code.png" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            Desarrollos Web
-                        </MudText>
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="margin-right:20px;">
-                            Ofrecemos servicios de desarrollo web completos y personalizados para satisfacer las necesidades específicas de su negocio.
-                            Nuestros desarrollos web se enfocan en crear sitios y aplicaciones web modernos,
-                            eficientes y escalables, que brinden una excelente experiencia de usuario y una interfaz intuitiva.
-                            Incluyendo servicios de hosting, dominios e indexación en Google para asegurar la visibilidad de tu sitio.
-                        </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4 h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/coding.png" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            Aplicaciones de escritorio
-                        </MudText>
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="margin-right:20px;">
-                            Proveemos servicios de desarrollo de aplicaciones de escritorio para Windows, diseñadas para satisfacer las necesidades específicas de su negocio.
-                            Nuestras soluciones de escritorio son seguras, eficientes y fáciles de usar, enfocadas en mejorar la productividad y eficiencia operativa.
-                        </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="4" lg="3" Style="display:flex; justify-content:center; align-items:center;" Class="Mud-grid-transform">
-        <MudPaper Elevation="2" Class="mud-width-full py-4 h-100">
-            <div class="d-flex flex-column-reverse flex-lg-row justify-center align-center">
-                <div class="mb-4 mb-lg-0" style="flex: 6.5; ">
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudImage Src="./img/server-storage.png" />
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.subtitle2" Style="color:black; font-family:'Geologica', Akzidenz-Grotesk BQ; font-weight:bold; font-size:20px;">
-                            Soluciones de bases de datos
-                        </MudText>
-                    </div>
-                    <div style="display:flex; justify-content:center; align-items:center;">
-                        <MudText Typo="Typo.body2" Class="texto-izquierda-subtitle-2-seccion-inicio" Style="margin-right:20px;">
-                            Ofrecemos servicios completos de gestión y desarrollo de bases de datos, asegurando la integridad, seguridad y eficiencia de sus datos. 
-                            Nuestras soluciones están diseñadas para optimizar el almacenamiento y acceso a la información, facilitando la toma de decisiones informadas y mejorando el rendimiento general del sistema.
-                        </MudText>
-                    </div>
-                </div>
-            </div>
-        </MudPaper>
-    </MudItem>
-</MudGrid>
-<!-- #endregion -->
-
-
-<div id="Contacto" class="container">
-    <div class="form">
-        <div class="contact-info">
-            <div id="stars"></div>
-            <div id="stars2"></div>
-            <div id="stars3"></div>
-            <MudText Typo="Typo.h2" Style="font-family: 'lato',sans-serif; background: -webkit-linear-gradient(white, #38495a);-webkit-background-clip: text;-webkit-text-fill-color: transparent; text-align:center;">Cuéntame tu idea, para hacerla realidad</MudText>
-            <MudText Typo="Typo.subtitle2" Style="font-family: 'lato',sans-serif; background: -webkit-linear-gradient(white, #38495a);-webkit-background-clip: text;-webkit-text-fill-color: transparent; text-align:center; text-decoration:underline;"><a href="mailto:juancho.ramirez.hernandez15@gmail.com">juancho.ramirez.hernandez15@gmail.com</a></MudText>
-            <MudText Typo="Typo.subtitle2" Style="font-family: 'lato',sans-serif; background: -webkit-linear-gradient(white, #38495a);-webkit-background-clip: text;-webkit-text-fill-color: transparent; text-align:center; text-decoration:underline;"><a href="https://api.whatsapp.com/send?phone=+573176374276&text=Hola%20Juan%20Manuel%20he%20visto%20tu%20cv%20en%20tu%20web">317-637-4276</a></MudText>
         </div>
-    </div>
-</div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contacto" class="section">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>Contacto</h2>
+                <p>¿Listo para llevar tu proyecto al siguiente nivel? Conectemos y hagamos realidad tus ideas tecnológicas</p>
+            </div>
+            <div class="contact-info">
+                <a href="mailto:juanmanuelramirez753@outlook.com" target="_blank">
+                <div class="contact-item fade-in-up">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Correo</h3>
+                </div>
+                </a>
+                <a href="https://wa.me/+573176374276" target="_blank">
+                <div class="contact-item fade-in-up">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>Teléfono - WhatsApp</h3>
+                </div>
+                </a>
+                <a href="https://www.linkedin.com/in/juan-manuel-r-08885b128/" target="_blank">
+                <div class="contact-item fade-in-up">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3>LinkedIn</h3>
+                </div>
+                </a>
+                <a href="https://github.com/JuanManuel753" target="_blank">
+                <div class="contact-item fade-in-up">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub</h3>
+                </div>
+                </a>
 
+            </div>
+        </div>
+    </section>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Desarrollador .NET. Transformando ideas en soluciones tecnológicas innovadoras.</p>
+        </div>
+    </footer>
 
-<script>
-    window.initFormScript = () => {
-    const inputs = document.querySelectorAll(".input");
+    <script>
 
-    function focusFunc() {
-        let parent = this.parentNode;
-        parent.classList.add("focus");
-    }
+                // Navbar scroll effect
+                window.addEventListener('scroll', () => {
+                    const navbar = document.getElementById('navbar');
+                    if (window.scrollY > 100) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                });
 
-    function blurFunc() {
-        let parent = this.parentNode;
-        if (this.value == "") {
-            parent.classList.remove("focus");
-        }d
-    }
+                // Smooth scrolling with active link highlighting
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
 
-    inputs.forEach((input) => {
-        input.addEventListener("focus", focusFunc);
-        input.addEventListener("blur", blurFunc);
-    });
-};
-</script>
+                        // Remove active class from all links
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('active');
+                        });
 
+                        // Add active class to clicked link
+                        this.classList.add('active');
 
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("initFormScript");
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    });
+                });
+
+                // Intersection Observer for animations
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all fade-in elements
+                document.querySelectorAll('.fade-in-up').forEach(el => {
+                    observer.observe(el);
+                });
+
+                // Section highlighting in navbar
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('.nav-link');
+
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.getAttribute('id');
+                            navLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href') === `#${id}`) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                sections.forEach(section => {
+                    sectionObserver.observe(section);
+                });
+
+                // CV Download function
+                        function downloadCV() {
+            // Ruta al PDF en wwwroot
+            const pdfUrl = "Profile.pdf";
+
+            const a = document.createElement("a");
+            a.href = pdfUrl;
+            a.download = "Profile.pdf"; // Nombre del archivo al descargar
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Notificación personalizada
+            showNotification("CV descargado exitosamente", "success");
         }
-    }
-}
+                // Notification system
+                function showNotification(message, type = 'info') {
+                    const notification = document.createElement('div');
+                    notification.className = `notification notification-${type}`;
+                    notification.innerHTML = `
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    `;
+
+                    // Estilos para la notificación
+                    notification.style.cssText = `
+                        position: fixed;
+                        top: 30px;
+                        right: 30px;
+                        background: ${type === 'success' ? '#10B981' : '#2196F3'};
+                        color: white;
+                        padding: 16px 24px;
+                        border-radius: 12px;
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        font-weight: 500;
+                        z-index: 10001;
+                        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                        transform: translateX(100%);
+                        transition: transform 0.3s ease;
+                    `;
+
+                    document.body.appendChild(notification);
+
+                    // Animar entrada
+                    setTimeout(() => {
+                        notification.style.transform = 'translateX(0)';
+                    }, 100);
+
+                    // Remover después de 3 segundos
+                    setTimeout(() => {
+                        notification.style.transform = 'translateX(100%)';
+                        setTimeout(() => {
+                            document.body.removeChild(notification);
+                        }, 300);
+                    }, 3000);
+                }
+
+                // Parallax effect for floating elements
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const parallaxElements = document.querySelectorAll('.floating-element');
+                    const speed = 0.5;
+
+                    parallaxElements.forEach((element, index) => {
+                        const yPos = -(scrolled * speed * (index + 1) * 0.5);
+                        element.style.transform = `translateY(${yPos}px)`;
+                    });
+                });
+
+                // Tech tags hover effect
+                document.querySelectorAll('.tech-tag, .project-tech-tag').forEach(tag => {
+                    tag.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-2px) scale(1.05)';
+                    });
+
+                    tag.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    });
+                });
+
+                // Performance optimization: Throttle scroll events
+                let ticking = false;
+
+                function updateOnScroll() {
+                    // Navbar effect
+                    const navbar = document.getElementById('navbar');
+                    if (window.scrollY > 100) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                    ticking = false;
+                }
+
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        requestAnimationFrame(updateOnScroll);
+                        ticking = true;
+                    }
+                });
+
+                // Add Easter egg
+                let clickCount = 0;
+                document.querySelector('.profile-img').addEventListener('click', () => {
+                    clickCount++;
+                    if (clickCount === 5) {
+                        showNotification('¡Has encontrado un Easter Egg! 🎉', 'success');
+                        document.querySelector('.profile-img').style.animation = 'profilePulse 0.5s ease-in-out 3';
+                        clickCount = 0;
+                    }
+                });
+
+                // Handle project links
+                document.querySelectorAll('.project-link:not(.disabled)').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        // Si el enlace está marcado como disabled, prevenir la navegación
+                        if (this.classList.contains('disabled')) {
+                            e.preventDefault();
+                            showNotification('Este proyecto no está disponible públicamente', 'info');
+                        }
+                    });
+                });
+
+                // Initialize animations on load
+                document.addEventListener('DOMContentLoaded', () => {
+                    // Add staggered animation delays
+                    document.querySelectorAll('.tech-card').forEach((card, index) => {
+                        card.style.animationDelay = `${index * 0.1}s`;
+                    });
+
+                    document.querySelectorAll('.project-card').forEach((card, index) => {
+                        card.style.animationDelay = `${index * 0.15}s`;
+                    });
+
+                    document.querySelectorAll('.contact-item').forEach((item, index) => {
+                        item.style.animationDelay = `${index * 0.1}s`;
+                    });
+                }); </script>
+</body>
+</html>
